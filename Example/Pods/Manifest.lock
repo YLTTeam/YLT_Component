@@ -1,0 +1,90 @@
+PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - FastCoding (3.3)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - LGAlertView (2.4.0)
+  - Masonry (1.1.0)
+  - MJExtension (3.0.15.1)
+  - MJRefresh (3.1.15.7)
+  - ReactiveObjC (3.1.0)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - YLT_BaseLib (0.3.0):
+    - FastCoding
+    - FMDB
+    - LGAlertView
+    - MJExtension
+  - YLT_Component (0.1.0):
+    - YLT_BaseLib
+    - YLT_Kit
+  - YLT_Kit (0.3.1):
+    - AFNetworking
+    - Masonry
+    - MJRefresh
+    - ReactiveObjC
+    - SDWebImage
+    - YLT_BaseLib
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - YLT_Component (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - FastCoding
+    - FBSnapshotTestCase
+    - FMDB
+    - LGAlertView
+    - Masonry
+    - MJExtension
+    - MJRefresh
+    - ReactiveObjC
+    - SDWebImage
+    - YLT_BaseLib
+    - YLT_Kit
+
+EXTERNAL SOURCES:
+  YLT_Component:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  FastCoding: 3b590f7143a229780fa744b35084d85d9461587e
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  LGAlertView: 2f5e83dd5cc2537de57d98727650609e86197d1a
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  YLT_BaseLib: ea8849d5345c8e8de92bf42410dc08e31699859b
+  YLT_Component: 964d6d809c1c56b3b94b3fc50a03a758c66f552f
+  YLT_Kit: eb3af277e884dd9a0b66d6f77e8fc25231470b78
+
+PODFILE CHECKSUM: a641481f6f377c651e9d13d651c642cd910bc7aa
+
+COCOAPODS: 1.5.3

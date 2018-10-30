@@ -1,0 +1,14 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+inhibit_all_warnings!
+use_frameworks!
+
+target 'YLT_Component_Example' do
+  pod 'YLT_Component', :path => '../'
+
+  target 'YLT_Component_Tests' do
+    inherit! :search_paths
+
+    pod 'FBSnapshotTestCase'
+  end
+end

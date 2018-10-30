@@ -1,0 +1,6 @@
+framework module YLT_Component {
+  umbrella header "YLT_Component-umbrella.h"
+
+  export *
+  module * { export * }
+}
