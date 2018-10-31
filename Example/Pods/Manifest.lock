@@ -15,11 +15,6 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - FastCoding (3.3)
-  - FBSnapshotTestCase (2.1.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
-  - FBSnapshotTestCase/Core (2.1.4)
-  - FBSnapshotTestCase/SwiftSupport (2.1.4):
-    - FBSnapshotTestCase/Core
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -48,14 +43,12 @@ PODS:
     - YLT_BaseLib
 
 DEPENDENCIES:
-  - FBSnapshotTestCase
   - YLT_Component (from `../`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - FastCoding
-    - FBSnapshotTestCase
     - FMDB
     - LGAlertView
     - Masonry
@@ -73,7 +66,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   FastCoding: 3b590f7143a229780fa744b35084d85d9461587e
-  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   LGAlertView: 2f5e83dd5cc2537de57d98727650609e86197d1a
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -85,6 +77,6 @@ SPEC CHECKSUMS:
   YLT_Component: 964d6d809c1c56b3b94b3fc50a03a758c66f552f
   YLT_Kit: eb3af277e884dd9a0b66d6f77e8fc25231470b78
 
-PODFILE CHECKSUM: a641481f6f377c651e9d13d651c642cd910bc7aa
+PODFILE CHECKSUM: 40d66ee104eb08981ae134b5d08fb3dc96acaf75
 
 COCOAPODS: 1.5.3

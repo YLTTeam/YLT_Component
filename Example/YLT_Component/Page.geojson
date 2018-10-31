@@ -1,0 +1,16 @@
+{
+    "ylt_countPreRow":2,
+    "ylt_topMargin":30,
+    "ylt_bottomMargin":12,
+    "ylt_leftMargin":30,
+    "ylt_rightMargin":0,
+    "ylt_spacing":20,
+    "ylt_ratio":2,
+    "ylt_cellClassName":"YLT_PalaceMenuCell",
+    "ylt_menuType":1,
+    "ylt_menuTitle":"这里是标题",
+    "ylt_dataSource":{
+        "username":"alex",
+        "password":"123456"
+    }
+}

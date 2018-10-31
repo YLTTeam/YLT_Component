@@ -9,6 +9,6 @@ target 'YLT_Component_Example' do
   target 'YLT_Component_Tests' do
     inherit! :search_paths
 
-    pod 'FBSnapshotTestCase'
+    #pod 'FBSnapshotTestCase'
   end
 end

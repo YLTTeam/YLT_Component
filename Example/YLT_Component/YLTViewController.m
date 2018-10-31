@@ -7,17 +7,43 @@
 //
 
 #import "YLTViewController.h"
+#import <YLT_BaseLib/YLT_BaseLib.h>
+#import <YLT_Kit/YLT_Kit.h>
+#import "YLT_Component.h"
+
+@interface TestModel : YLT_BaseModel<YLT_PalaceProtocol>
+
+@end
+
+@implementation TestModel
+
+- (MenuType)ylt_menuType {
+    return 1;
+}
+
+- (NSString *)ylt_menuTitle {
+    return @"这里是标题1";
+}
+
+@end
+
 
 @interface YLTViewController ()
-
 @end
 
 @implementation YLTViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Page" ofType:@"geojson"]] options:NSJSONReadingAllowFragments error:nil];
+    TestModel *model = [TestModel ylt_objectWithKeyValues:dic];
+    UIViewController *vc = [YLT_RouterManager ylt_routerToURL:@"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456" arg:model completion:^(NSError *error, id response) {
+        NSLog(@"%@", response);
+    }];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
