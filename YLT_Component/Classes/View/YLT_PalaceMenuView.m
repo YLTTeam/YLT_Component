@@ -117,7 +117,7 @@
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
-        _nameLabel = UILabel.ylt_create().ylt_convertToLabel().ylt_fontSize(16).ylt_textColor(@"666666".ylt_colorFromHexString);
+        _nameLabel = UILabel.ylt_create().ylt_convertToLabel().ylt_fontSize(16).ylt_textColor(@"666666".ylt_colorFromHexString).ylt_textAlignment(NSTextAlignmentCenter);
         [self addSubview:_nameLabel];
     }
     return _nameLabel;

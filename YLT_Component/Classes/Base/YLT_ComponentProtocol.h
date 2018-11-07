@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger, MenuType) {
 };
 
 @protocol YLT_PalaceProtocol <NSObject>
+
+@optional
 /**
  九宫格菜单类型 默认纯图片
  */

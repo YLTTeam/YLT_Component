@@ -15,6 +15,14 @@
  @param params 参数
  @return 回参
  */
-- (id)ylt_componentVCRouter:(id)params;
++ (id)ylt_componentVCRouter:(id)params;
+
+/**
+ 路由回调
+
+ @param params 回调参数
+ @return 回参
+ */
++ (id)ylt_componentCompletion:(id)params;
 
 @end

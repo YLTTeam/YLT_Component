@@ -9,6 +9,7 @@
 #import "YLT_BaseComponentCell.h"
 #import "YLT_BaseModel+Component.h"
 #import <YLT_BaseLib/YLT_BaseLib.h>
+#import <YLT_Kit/YLT_Kit.h>
 
 @interface YLT_ComponentVC (CollectionDelegate)<UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -58,6 +59,18 @@
     }
     cell.componentData = data;
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    YLT_BaseModel *data = self.list[indexPath.section];
+    if ([data.ylt_dataSource isKindOfClass:[NSArray class]]) {
+        data = [((NSArray *) data.ylt_dataSource) objectAtIndex:indexPath.row];
+    }
+    if (data.ylt_router.ylt_isValid) {
+        [YLT_RouterManager ylt_routerToURL:data.ylt_router isClassMethod:YES arg:nil completion:^(NSError *error, id response) {
+            YLT_Log(@"%@", response);
+        }];
+    }
 }
 
 @end

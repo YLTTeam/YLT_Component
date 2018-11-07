@@ -14,7 +14,11 @@
 }
 
 - (id)ylt_dataSource {
-    return objc_getAssociatedObject(self, @selector(ylt_dataSource));
+    id obj = objc_getAssociatedObject(self, @selector(ylt_dataSource));
+    if (obj == nil && [((NSDictionary *) self.ylt_sourceData).allKeys containsObject:@"ylt_dataSource"]) {
+        obj = [((NSDictionary *) self.ylt_sourceData) objectForKey:@"ylt_dataSource"];
+    }
+    return obj;
 }
 
 - (void)setYlt_router:(NSString *)ylt_router {
@@ -22,7 +26,11 @@
 }
 
 - (NSString *)ylt_router {
-    return objc_getAssociatedObject(self, @selector(ylt_router));
+    NSString *obj = objc_getAssociatedObject(self, @selector(ylt_router));
+    if (obj == nil && [((NSDictionary *) self.ylt_sourceData).allKeys containsObject:@"ylt_router"]) {
+        obj = [((NSDictionary *) self.ylt_sourceData) objectForKey:@"ylt_router"];
+    }
+    return obj;
 }
 
 - (void)setYlt_countPreRow:(NSInteger)ylt_countPreRow {
@@ -31,7 +39,14 @@
 
 - (NSInteger)ylt_countPreRow {
     NSNumber *obj = objc_getAssociatedObject(self, @selector(ylt_countPreRow));
-    return obj ? [obj integerValue] : 1;
+    if (obj.integerValue == 0) {
+        if ([((NSDictionary *) self.ylt_sourceData).allKeys containsObject:@"ylt_countPreRow"]) {
+            return [[((NSDictionary *) self.ylt_sourceData) objectForKey:@"ylt_countPreRow"] integerValue];
+        }
+    } else {
+        return obj.integerValue;
+    }
+    return 1;
 }
 
 - (void)setYlt_topMargin:(CGFloat)ylt_topMargin {
@@ -40,7 +55,14 @@
 
 - (CGFloat)ylt_topMargin {
     NSNumber *obj = objc_getAssociatedObject(self, @selector(ylt_topMargin));
-    return obj ? [obj floatValue] : 16.;
+    if (obj.floatValue == 0) {
+        if ([((NSDictionary *) self.ylt_sourceData).allKeys containsObject:@"ylt_topMargin"]) {
+            return [[((NSDictionary *) self.ylt_sourceData) objectForKey:@"ylt_topMargin"] floatValue];
+        }
+    } else {
+        return obj.floatValue;
+    }
+    return 16.;
 }
 
 - (void)setYlt_bottomMargin:(CGFloat)ylt_bottomMargin {
@@ -49,7 +71,14 @@
 
 - (CGFloat)ylt_bottomMargin {
     NSNumber *obj = objc_getAssociatedObject(self, @selector(ylt_bottomMargin));
-    return obj ? [obj floatValue] : 16.;
+    if (obj.floatValue == 0) {
+        if ([((NSDictionary *) self.ylt_sourceData).allKeys containsObject:@"ylt_bottomMargin"]) {
+            return [[((NSDictionary *) self.ylt_sourceData) objectForKey:@"ylt_bottomMargin"] floatValue];
+        }
+    } else {
+        return obj.floatValue;
+    }
+    return 16.;
 }
 
 - (void)setYlt_leftMargin:(CGFloat)ylt_leftMargin {
@@ -58,7 +87,14 @@
 
 - (CGFloat)ylt_leftMargin {
     NSNumber *obj = objc_getAssociatedObject(self, @selector(ylt_leftMargin));
-    return obj ? [obj floatValue] : 16.;
+    if (obj.floatValue == 0) {
+        if ([((NSDictionary *) self.ylt_sourceData).allKeys containsObject:@"ylt_leftMargin"]) {
+            return [[((NSDictionary *) self.ylt_sourceData) objectForKey:@"ylt_leftMargin"] floatValue];
+        }
+    } else {
+        return obj.floatValue;
+    }
+    return 16.;
 }
 
 - (void)setYlt_rightMargin:(CGFloat)ylt_rightMargin {
@@ -67,7 +103,14 @@
 
 - (CGFloat)ylt_rightMargin {
     NSNumber *obj = objc_getAssociatedObject(self, @selector(ylt_rightMargin));
-    return obj ? [obj floatValue] : 16.;
+    if (obj.floatValue == 0) {
+        if ([((NSDictionary *) self.ylt_sourceData).allKeys containsObject:@"ylt_rightMargin"]) {
+            return [[((NSDictionary *) self.ylt_sourceData) objectForKey:@"ylt_rightMargin"] floatValue];
+        }
+    } else {
+        return obj.floatValue;
+    }
+    return 16.;
 }
 
 - (void)setYlt_spacing:(CGFloat)ylt_spacing {
@@ -75,8 +118,15 @@
 }
 
 - (CGFloat)ylt_spacing {
-    NSNumber *obj = objc_getAssociatedObject(self, @selector(ylt_rightMargin));
-    return obj ? [obj floatValue] : 8.;
+    NSNumber *obj = objc_getAssociatedObject(self, @selector(ylt_spacing));
+    if (obj.floatValue == 0) {
+        if ([((NSDictionary *) self.ylt_sourceData).allKeys containsObject:@"ylt_spacing"]) {
+            return [[((NSDictionary *) self.ylt_sourceData) objectForKey:@"ylt_spacing"] floatValue];
+        }
+    } else {
+        return obj.floatValue;
+    }
+    return 8.;
 }
 
 - (void)setYlt_width:(CGFloat)ylt_width {
@@ -101,7 +151,14 @@
 
 - (CGFloat)ylt_ratio {
     NSNumber *obj = objc_getAssociatedObject(self, @selector(ylt_ratio));
-    return obj ? [obj floatValue] : 16./9.;
+    if (obj.floatValue == 0) {
+        if ([((NSDictionary *) self.ylt_sourceData).allKeys containsObject:@"ylt_ratio"]) {
+            return [[((NSDictionary *) self.ylt_sourceData) objectForKey:@"ylt_ratio"] floatValue];
+        }
+    } else {
+        return obj.floatValue;
+    }
+    return 16./9.;
 }
 
 - (void)setYlt_cellClassName:(NSString *)ylt_cellClassName {
