@@ -8,22 +8,21 @@
 #import <Foundation/Foundation.h>
 #import <Masonry/Masonry.h>
 
-typedef NS_ENUM(NSInteger, MenuType) {
-    MenuTypeOnlyImage = 0,
-    MenuTypeOnlyTitle = 1,
-    MenuTypeImageAtLeft = 2,
-    MenuTypeImageAtRight = 3,
-    MenuTypeImageAtTop = 4,
-    MenuTypeImageAtBottom = 5
-};
+@protocol YLT_ComponentActionProtocol <NSObject>
 
-@protocol YLT_PalaceProtocol <NSObject>
-
-@optional
 /**
- 九宫格菜单类型 默认纯图片
+ 组件的约束
  */
-- (MenuType)ylt_menuType;
+- (void(^)(MASConstraintMaker *make))ylt_constraintMaker;
+/**
+ 组件事件回调
+ */
+- (void(^)(id sender))ylt_componentBlock;
+
+@end
+
+@protocol YLT_ImageViewProtocol <NSObject, YLT_ComponentActionProtocol>
+
 /**
  占位图
  */
@@ -31,28 +30,71 @@ typedef NS_ENUM(NSInteger, MenuType) {
 /**
  九宫格菜单的图片
  */
-- (NSString *)ylt_menuThumbImage;
+- (NSString *)ylt_componentImage;
+
+@end
+
+@protocol YLT_LabelProtocol <NSObject>
 /**
  九宫格菜单的标题
  */
-- (NSString *)ylt_menuTitle;
+- (NSString *)ylt_componentTitle;
 /**
  文字的字体字号
  */
-- (UIFont *)ylt_menuFont;
+- (UIFont *)ylt_componentFont;
 /**
  文字的字体颜色 默认16号字 "666666" 颜色
  */
-- (UIColor *)ylt_menuTextColor;
-
-/**
- 图片的约束
- */
-- (void(^)(MASConstraintMaker *make))ylt_thumbImageMaker;
-
-/**
- 标题的约束
- */
-- (void(^)(MASConstraintMaker *make))ylt_titleMaker;
+- (UIColor *)ylt_componentTextColor;
 
 @end
+
+
+///九宫格菜单的 item 布局
+typedef NS_ENUM(NSInteger, MenuType) {
+    /** 仅有图片 */
+    MenuTypeOnlyImage = 0,
+    /** 仅有标题 */
+    MenuTypeOnlyTitle = 1,
+    /** 左图右标题 */
+    MenuTypeImageAtLeft = 2,
+    /** 右图左标题 */
+    MenuTypeImageAtRight = 3,
+    /** 上图下标题 */
+    MenuTypeImageAtTop = 4,
+    /** 下图上标题 */
+    MenuTypeImageAtBottom = 5
+};
+
+///九宫格菜单的协议
+@protocol YLT_PalaceProtocol <NSObject, YLT_ComponentActionProtocol, YLT_ImageViewProtocol, YLT_LabelProtocol>
+
+@optional
+/**
+ 九宫格菜单类型 默认纯图片
+ */
+- (MenuType)ylt_menuType;
+
+@end
+
+
+///新闻类协议
+typedef NS_ENUM(NSInteger, NewsType) {
+    /** 上面大图的新闻 */
+    NewsTypeBigImage = 0,
+    /** 下面标题加右边小图片的新闻 */
+    NewsTypeRightImage = 1,
+};
+
+@protocol YLT_NewsProtocol<NSObject, YLT_ComponentActionProtocol, YLT_ImageViewProtocol, YLT_LabelProtocol>
+
+@optional
+/**
+ 新闻类型
+ */
+- (NewsType)ylt_newsType;
+
+@end
+
+

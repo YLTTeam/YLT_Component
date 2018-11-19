@@ -9,6 +9,7 @@
 
 @interface YLT_PalaceMenuView ()
 @property (nonatomic, strong) id<YLT_PalaceProtocol> menuData;
+@property (nonatomic, strong) id<YLT_PalaceProtocol> sectionData;
 @property (nonatomic, strong) UIImageView *thumbImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @end
@@ -21,6 +22,11 @@
     return menu;
 }
 
+- (void)setSectionData:(id<YLT_PalaceProtocol>)sectionData {
+    _sectionData = sectionData;
+    [self updateFromData:sectionData];
+}
+
 - (void)setMenuData:(id<YLT_PalaceProtocol>)menuData {
     if (![menuData conformsToProtocol:@protocol(YLT_PalaceProtocol)]) {
         //没有实现指定的协议
@@ -29,7 +35,24 @@
         return;
     }
     _menuData = menuData;
-    switch (_menuData.ylt_menuType) {
+    [self updateFromData:menuData];
+    
+    if (_thumbImageView) {
+        self.thumbImageView.ylt_image(_menuData.ylt_componentImage);
+        if ([_menuData respondsToSelector:@selector(ylt_constraintMaker)]) {
+            [self.thumbImageView mas_remakeConstraints:_menuData.ylt_constraintMaker];
+        }
+    }
+    if (_nameLabel) {//已经使用了标题
+        if ([_menuData respondsToSelector:@selector(ylt_constraintMaker)]) {
+            [self.nameLabel mas_remakeConstraints:_menuData.ylt_constraintMaker];
+        }
+        self.nameLabel.ylt_text(_menuData.ylt_componentTitle);
+    }
+}
+
+- (void)updateFromData:(id<YLT_PalaceProtocol>)data {
+    switch (data.ylt_menuType) {
         case MenuTypeOnlyImage: {
             [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
@@ -88,28 +111,24 @@
             break;
     }
     if (_thumbImageView) {
-        self.thumbImageView.ylt_image(_menuData.ylt_menuThumbImage);
-        if ([_menuData respondsToSelector:@selector(ylt_thumbImageMaker)]) {
-            [self.thumbImageView mas_remakeConstraints:_menuData.ylt_thumbImageMaker];
+        if ([data respondsToSelector:@selector(ylt_placeholderImage)] && self.thumbImageView.image == nil) {
+            self.thumbImageView.ylt_image(data.ylt_placeholderImage);
         }
     }
     if (_nameLabel) {//已经使用了标题
-        if ([_menuData respondsToSelector:@selector(ylt_menuFont)]) {
-            self.nameLabel.font = _menuData.ylt_menuFont;
+        if ([data respondsToSelector:@selector(ylt_componentFont)]) {
+            self.nameLabel.font = data.ylt_componentFont;
         }
-        if ([_menuData respondsToSelector:@selector(ylt_menuTextColor)]) {
-            self.nameLabel.textColor = _menuData.ylt_menuTextColor;
+        if ([data respondsToSelector:@selector(ylt_componentTextColor)]) {
+            self.nameLabel.textColor = data.ylt_componentTextColor;
         }
-        if ([_menuData respondsToSelector:@selector(ylt_titleMaker)]) {
-            [self.nameLabel mas_remakeConstraints:_menuData.ylt_titleMaker];
-        }
-        self.nameLabel.ylt_text(_menuData.ylt_menuTitle);
     }
 }
 
 - (UIImageView *)thumbImageView {
     if (!_thumbImageView) {
-        _thumbImageView = UIImageView.ylt_create().ylt_convertToImageView().ylt_contentMode(UIViewContentModeScaleAspectFit);
+        _thumbImageView = UIImageView.ylt_create().ylt_convertToImageView().ylt_contentMode(UIViewContentModeScaleAspectFill);
+        _thumbImageView.clipsToBounds = YES;
         [self addSubview:_thumbImageView];
     }
     return _thumbImageView;
@@ -131,6 +150,13 @@
 @end
 
 @implementation YLT_PalaceMenuCell
+
+- (void)setSectionData:(id)sectionData {
+    if ([sectionData conformsToProtocol:@protocol(YLT_PalaceProtocol)]) {
+        [super setSectionData:sectionData];
+        self.mainView.sectionData = sectionData;
+    }
+}
 
 - (void)setComponentData:(id)componentData {
     [super setComponentData:componentData];

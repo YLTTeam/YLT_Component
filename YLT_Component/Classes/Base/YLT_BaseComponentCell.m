@@ -9,6 +9,10 @@
 
 @implementation YLT_BaseComponentCell
 
+- (void)setSectionData:(id)sectionData {
+    _sectionData = sectionData;
+}
+
 - (void)setComponentData:(id)componentData {
     _componentData = componentData;
 }

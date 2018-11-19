@@ -19,8 +19,15 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     YLT_BaseModel *data = self.list[indexPath.section];
+    CGFloat ratio = data.ylt_ratio;
     CGFloat width = (YLT_SCREEN_WIDTH-data.ylt_leftMargin-data.ylt_rightMargin-data.ylt_spacing*(data.ylt_countPreRow-1))/data.ylt_countPreRow;
-    CGFloat height = width/data.ylt_ratio;
+    if ([data.ylt_dataSource isKindOfClass:[NSArray class]]) {
+        data = [((NSArray *) data.ylt_dataSource) objectAtIndex:indexPath.row];
+        if (data.ylt_ratio != 0) {
+            ratio = data.ylt_ratio;
+        }
+    }
+    CGFloat height = width/ratio;
     return CGSizeMake(width, height);
 }
 
@@ -52,11 +59,13 @@
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    YLT_BaseModel *data = self.list[indexPath.section];
+    YLT_BaseModel *sectionData = self.list[indexPath.section];
+    YLT_BaseModel *data = sectionData;
     YLT_BaseComponentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:data.ylt_cellClassName forIndexPath:indexPath];
     if ([data.ylt_dataSource isKindOfClass:[NSArray class]]) {
         data = [((NSArray *) data.ylt_dataSource) objectAtIndex:indexPath.row];
     }
+    cell.sectionData = sectionData;
     cell.componentData = data;
     return cell;
 }
