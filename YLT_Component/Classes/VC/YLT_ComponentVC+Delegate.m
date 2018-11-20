@@ -21,7 +21,9 @@
     YLT_ComponentModel *data = self.list[indexPath.section];
     CGFloat ratio = data.ylt_ratio;
     CGFloat width = (YLT_SCREEN_WIDTH-data.ylt_leftMargin-data.ylt_rightMargin-data.ylt_spacing*(data.ylt_countPreRow-1))/data.ylt_countPreRow;
-    if (!data.ylt_single && [data.ylt_dataSource isKindOfClass:[NSArray class]]) {
+    if (data.ylt_single) {//当为单行时，width为全屏幕
+        width = (YLT_SCREEN_WIDTH-data.ylt_leftMargin-data.ylt_rightMargin);
+    } else if ([data.ylt_dataSource isKindOfClass:[NSArray class]]){
         data = [((NSArray *) data.ylt_dataSource) objectAtIndex:indexPath.row];
         if (data.ylt_ratio != 0) {
             ratio = data.ylt_ratio;

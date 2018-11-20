@@ -11,6 +11,8 @@
 
 /** 每行几个元素 默认1个 */
 @property (nonatomic, assign) NSInteger ylt_countPreRow;
+/** 总共多少航数据 默认1行 */
+@property (nonatomic, assign) NSInteger ylt_rows;
 /** 上下左右边距 默认 16 */
 @property (nonatomic, assign) CGFloat ylt_topMargin;
 @property (nonatomic, assign) CGFloat ylt_bottomMargin;

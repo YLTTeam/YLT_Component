@@ -26,11 +26,11 @@
 /**
  占位图
  */
-- (NSString *)ylt_placeholderImage;
+@property (nonatomic, strong) NSString *ylt_placeholderImage;
 /**
  九宫格菜单的图片
  */
-- (NSString *)ylt_componentImage;
+@property (nonatomic, strong) NSString *ylt_componentImage;
 
 @end
 
@@ -38,15 +38,15 @@
 /**
  九宫格菜单的标题
  */
-- (NSString *)ylt_componentTitle;
+@property (nonatomic, strong) NSString *ylt_componentTitle;
 /**
  文字的字体字号
  */
-- (UIFont *)ylt_componentFont;
+@property (nonatomic, strong) UIFont *ylt_componentFont;
 /**
  文字的字体颜色 默认16号字 "666666" 颜色
  */
-- (UIColor *)ylt_componentTextColor;
+@property (nonatomic, strong) UIColor *ylt_componentTextColor;
 
 @end
 
@@ -74,7 +74,13 @@ typedef NS_ENUM(NSInteger, MenuType) {
 /**
  九宫格菜单类型 默认纯图片
  */
-- (MenuType)ylt_menuType;
+@property (nonatomic, assign) MenuType ylt_menuType;
+
+/**
+ 最多显示多少行    当 ylt_single 为 false 时，显示rows行，多余部分不显示（rows为0时，全部显示）
+                当 ylt_single 为 true 时，显示row行，多余部分可以横向滚动 
+ */
+@property (nonatomic, assign) NSInteger ylt_rows;
 
 @end
 
@@ -93,7 +99,7 @@ typedef NS_ENUM(NSInteger, NewsType) {
 /**
  新闻类型
  */
-- (NewsType)ylt_newsType;
+@property (nonatomic, assign) NewsType ylt_newsType;
 
 @end
 

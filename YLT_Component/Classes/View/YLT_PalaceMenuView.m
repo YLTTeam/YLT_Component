@@ -6,6 +6,7 @@
 //
 
 #import "YLT_PalaceMenuView.h"
+#import <UICollectionViewLeftAlignedLayout/UICollectionViewLeftAlignedLayout.h>
 
 @interface YLT_PalaceMenuView ()
 @property (nonatomic, strong) UIImageView *thumbImageView;
@@ -92,17 +93,6 @@
         if ([data respondsToSelector:@selector(ylt_placeholderImage)] && self.thumbImageView.image == nil) {
             self.thumbImageView.ylt_image(data.ylt_placeholderImage);
         }
-    }
-    if (_nameLabel) {//已经使用了标题
-        if ([data respondsToSelector:@selector(ylt_componentFont)]) {
-            self.nameLabel.font = data.ylt_componentFont;
-        }
-        if ([data respondsToSelector:@selector(ylt_componentTextColor)]) {
-            self.nameLabel.textColor = data.ylt_componentTextColor;
-        }
-    }
-    
-    if (_thumbImageView) {
         if ([data respondsToSelector:@selector(ylt_constraintMaker)]) {
             [self.thumbImageView mas_remakeConstraints:data.ylt_constraintMaker];
         }
@@ -111,6 +101,12 @@
         }
     }
     if (_nameLabel) {//已经使用了标题
+        if ([data respondsToSelector:@selector(ylt_componentFont)]) {
+            self.nameLabel.font = data.ylt_componentFont;
+        }
+        if ([data respondsToSelector:@selector(ylt_componentTextColor)]) {
+            self.nameLabel.textColor = data.ylt_componentTextColor;
+        }
         if ([data respondsToSelector:@selector(ylt_constraintMaker)]) {
             [self.nameLabel mas_remakeConstraints:data.ylt_constraintMaker];
         }
@@ -140,22 +136,56 @@
 @end
 
 
-@interface YLT_PalaceMenuCell ()
+@interface YLT_PalaceMenuCell ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@property (nonatomic, strong) UICollectionView *horCollectionView;
 @property (nonatomic, strong) YLT_PalaceMenuView *mainView;
 @end
 
 @implementation YLT_PalaceMenuCell
 
-- (void)setSectionData:(id)sectionData {
+- (void)setSectionData:(YLT_ComponentModel *)sectionData {
     if ([sectionData conformsToProtocol:@protocol(YLT_PalaceProtocol)]) {
         [super setSectionData:sectionData];
+        if (sectionData.ylt_single) {
+            [self horCollectionView];
+            return;
+        }
         self.mainView.sectionData = sectionData;
     }
 }
 
-- (void)setComponentData:(id)componentData {
+- (void)setComponentData:(YLT_ComponentModel *)componentData {
     [super setComponentData:componentData];
+    if (self.sectionData && self.sectionData.ylt_single) {
+        return;
+    }
     self.mainView.componentData = componentData;
+}
+
+- (UICollectionView *)horCollectionView {
+    if (!_horCollectionView) {
+        UICollectionViewLeftAlignedLayout *flowLayout = [[UICollectionViewLeftAlignedLayout alloc] init];
+        CGFloat width = (YLT_SCREEN_WIDTH-self.sectionData.ylt_leftMargin-self.sectionData.ylt_rightMargin);
+        CGFloat height = width/self.sectionData.ylt_ratio;
+        width = (width-self.sectionData.ylt_spacing*(self.sectionData.ylt_countPreRow-1))/self.sectionData.ylt_countPreRow;
+        height = (height-self.sectionData.ylt_spacing*(self.sectionData.ylt_rows-1))/self.sectionData.ylt_rows;
+        flowLayout.itemSize = CGSizeMake(width, height);
+        flowLayout.minimumLineSpacing = self.sectionData.ylt_spacing;
+        flowLayout.minimumInteritemSpacing = self.sectionData.ylt_spacing;
+        flowLayout.sectionInset = UIEdgeInsetsZero;
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        _horCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+        _horCollectionView.backgroundColor = UIColor.clearColor;
+        _horCollectionView.showsHorizontalScrollIndicator = NO;
+        [_horCollectionView registerCell:@[@"YLT_PalaceMenuCell"]];
+        _horCollectionView.delegate = self;
+        _horCollectionView.dataSource = self;
+        [self addSubview:_horCollectionView];
+        [_horCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+    }
+    return _horCollectionView;
 }
 
 - (YLT_PalaceMenuView *)mainView {
@@ -170,3 +200,28 @@
 }
 
 @end
+
+@implementation YLT_PalaceMenuCell(Delegate)
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.sectionData.ylt_dataSource.count;
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    YLT_PalaceMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:YLT_PalaceMenuCell.ylt_identify forIndexPath:indexPath];
+    YLT_ComponentModel<YLT_PalaceProtocol> *model = [self.sectionData.ylt_dataSource objectAtIndex:indexPath.row];
+    if (model.ylt_menuType == 0) {
+        YLT_ComponentModel<YLT_PalaceProtocol> *obj = self.sectionData;
+        model.ylt_menuType = obj.ylt_menuType;
+    }
+    cell.componentData = model;
+    return cell;
+}
+
+@end
+
+
+
+
+
+

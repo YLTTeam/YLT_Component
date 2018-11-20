@@ -16,6 +16,13 @@
     return _ylt_countPreRow;
 }
 
+- (NSInteger)ylt_rows {
+    if (self.ylt_sourceData && ![((NSDictionary *)self.ylt_sourceData).allKeys containsObject:@"ylt_rows"]) {
+        _ylt_rows = 1;
+    }
+    return _ylt_rows;
+}
+
 - (CGFloat)ylt_topMargin {
     if (self.ylt_sourceData && ![((NSDictionary *)self.ylt_sourceData).allKeys containsObject:@"ylt_topMargin"]) {
         _ylt_topMargin = 16.;

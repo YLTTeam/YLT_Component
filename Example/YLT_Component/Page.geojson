@@ -1,6 +1,7 @@
 [
  {
  "ylt_countPreRow":3,
+ "ylt_rows":1,
  "ylt_topMargin":8,
  "ylt_bottomMargin":8,
  "ylt_leftMargin":8,
@@ -37,7 +38,76 @@
                    }]
  },
  {
+ "ylt_countPreRow":5,
+ "ylt_rows":1,
+ "ylt_topMargin":8,
+ "ylt_bottomMargin":8,
+ "ylt_leftMargin":8,
+ "ylt_rightMargin":8,
+ "ylt_spacing":8,
+ "ylt_ratio":5,
+ "ylt_cellClassName":"YLT_PalaceMenuCell",
+ "ylt_type":5,
+ "ylt_single":1,
+ "ylt_textColor":"00ff00",
+ "ylt_dataSource":[{
+                   "ylt_ratio":1,
+                   "username":"alex",
+                   "password":"123456",
+                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
+                   },
+                   {
+                   "ylt_ratio":1,
+                   "username":"alex",
+                   "password":"123456",
+                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
+                   },
+                   {
+                   "ylt_ratio":1,
+                   "username":"alex",
+                   "password":"123456",
+                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
+                   },
+                   {
+                   "ylt_ratio":1,
+                   "username":"alex",
+                   "password":"123456",
+                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
+                   },
+                   {
+                   "ylt_ratio":1,
+                   "username":"alex",
+                   "password":"123456",
+                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentCompletion:?username=alex&password=123456"
+                   },
+                   {
+                   "ylt_ratio":1,
+                   "username":"alex",
+                   "password":"123456",
+                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentCompletion:?username=alex&password=123456"
+                   },
+                   {
+                   "ylt_ratio":1,
+                   "username":"alex",
+                   "password":"123456",
+                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentCompletion:?username=alex&password=123456"
+                   },
+                   {
+                   "ylt_ratio":1,
+                   "username":"alex",
+                   "password":"123456",
+                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentCompletion:?username=alex&password=123456"
+                   },
+                   {
+                   "ylt_ratio":1,
+                   "username":"alex",
+                   "password":"123456",
+                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentCompletion:?username=alex&password=123456"
+                   }]
+ },
+ {
  "ylt_countPreRow":1,
+ "ylt_rows":1,
  "ylt_topMargin":8,
  "ylt_bottomMargin":8,
  "ylt_leftMargin":18,
@@ -83,6 +153,7 @@
  },
  {
  "ylt_countPreRow":1,
+ "ylt_rows":1,
  "ylt_topMargin":8,
  "ylt_bottomMargin":8,
  "ylt_leftMargin":18,

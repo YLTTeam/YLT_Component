@@ -25,6 +25,14 @@
     return self.type;
 }
 
+- (MenuType)ylt_menuType {
+    return self.type;
+}
+
+- (void)setYlt_menuType:(MenuType)ylt_menuType {
+    self.type = ylt_menuType;
+}
+
 - (CGFloat)ylt_ratio {
     return self.ratio;
 }

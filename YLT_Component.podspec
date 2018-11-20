@@ -40,4 +40,5 @@ Pod::Spec.new do |s|
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'YLT_BaseLib'
   s.dependency 'YLT_Kit'
+  s.dependency 'UICollectionViewLeftAlignedLayout'
 end
