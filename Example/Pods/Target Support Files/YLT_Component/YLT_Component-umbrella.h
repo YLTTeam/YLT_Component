@@ -11,8 +11,8 @@
 #endif
 
 #import "YLT_BaseComponentCell.h"
+#import "YLT_ComponentModel.h"
 #import "YLT_ComponentProtocol.h"
-#import "YLT_BaseModel+Component.h"
 #import "YLT_ComponentRouter.h"
 #import "YLT_ComponentVC+Delegate.h"
 #import "YLT_ComponentVC.h"

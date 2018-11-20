@@ -54,17 +54,17 @@
 ///九宫格菜单的 item 布局
 typedef NS_ENUM(NSInteger, MenuType) {
     /** 仅有图片 */
-    MenuTypeOnlyImage = 0,
+    MenuTypeOnlyImage = 1,
     /** 仅有标题 */
-    MenuTypeOnlyTitle = 1,
+    MenuTypeOnlyTitle = 2,
     /** 左图右标题 */
-    MenuTypeImageAtLeft = 2,
+    MenuTypeImageAtLeft = 3,
     /** 右图左标题 */
-    MenuTypeImageAtRight = 3,
+    MenuTypeImageAtRight = 4,
     /** 上图下标题 */
-    MenuTypeImageAtTop = 4,
+    MenuTypeImageAtTop = 5,
     /** 下图上标题 */
-    MenuTypeImageAtBottom = 5
+    MenuTypeImageAtBottom = 6
 };
 
 ///九宫格菜单的协议
@@ -82,9 +82,9 @@ typedef NS_ENUM(NSInteger, MenuType) {
 ///新闻类协议
 typedef NS_ENUM(NSInteger, NewsType) {
     /** 上面大图的新闻 */
-    NewsTypeBigImage = 0,
+    NewsTypeBigImage = 1,
     /** 下面标题加右边小图片的新闻 */
-    NewsTypeRightImage = 1,
+    NewsTypeRightImage = 2,
 };
 
 @protocol YLT_NewsProtocol<NSObject, YLT_ComponentActionProtocol, YLT_ImageViewProtocol, YLT_LabelProtocol>

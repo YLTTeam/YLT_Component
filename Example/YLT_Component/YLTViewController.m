@@ -11,11 +11,12 @@
 #import <YLT_Kit/YLT_Kit.h>
 #import "YLT_Component.h"
 
-@interface Test2Model : YLT_BaseModel<YLT_PalaceProtocol>
+@interface Test2Model : YLT_ComponentModel<YLT_PalaceProtocol, YLT_NewsProtocol>
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) CGFloat ratio;
+@property (nonatomic, strong) NSString *ylt_textColor;
 @end
 
 @implementation Test2Model
@@ -28,9 +29,9 @@
     return self.ratio;
 }
 
-- (MenuType)ylt_menuType {
-    return 4;
-}
+//- (MenuType)ylt_menuType {
+//    return 4;
+//}
 
 - (NSString *)ylt_componentTitle {
     return self.username;
@@ -42,14 +43,16 @@
 
 @end
 
-@interface TestModel : YLT_BaseModel<YLT_PalaceProtocol, YLT_NewsProtocol>
+@interface TestModel : YLT_ComponentModel<YLT_PalaceProtocol, YLT_NewsProtocol>
+@property (nonatomic, assign) NSInteger ylt_type;
+@property (nonatomic, strong) NSString *ylt_textColor;
 
 @end
 
 @implementation TestModel
 
 - (MenuType)ylt_menuType {
-    return 1;
+    return self.ylt_type;
 }
 
 - (NSString *)ylt_componentTitle {
@@ -61,7 +64,7 @@
 }
 
 - (UIColor *)ylt_componentTextColor {
-    return [UIColor redColor];
+    return self.ylt_textColor.ylt_colorFromHexString;
 }
 
 + (NSDictionary *)ylt_keyMapper {
@@ -89,6 +92,7 @@
     NSMutableArray *data = [[NSMutableArray alloc] init];
     for (int i = 0; i < list.count; i++) {
         TestModel *model = [TestModel ylt_objectWithKeyValues:list[i]];
+        YLT_LogError(@"%@", model.ylt_sourceData);
         [data addObject:model];
     }
     [YLT_RouterManager ylt_routerToURL:@"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456" isClassMethod:YES arg:data completion:^(NSError *error, id response) {

@@ -6,10 +6,11 @@
 //
 
 #import <YLT_Kit/YLT_Kit.h>
+#import "YLT_ComponentModel.h"
 #import "YLT_ComponentProtocol.h"
 
 @interface YLT_ComponentVC : YLT_BaseVC
 
-@property (nonatomic, strong) NSMutableArray<YLT_BaseModel *> *list;
+@property (nonatomic, strong) NSMutableArray<YLT_ComponentModel *> *list;
 
 @end

@@ -10,7 +10,7 @@
 #import "YLT_ComponentProtocol.h"
 
 ///新闻类视图
-@interface YLT_NewsView : YLT_BaseView
+@interface YLT_NewsView : YLT_BaseComponentView
 
 /**
  生成新闻视图
@@ -26,3 +26,4 @@
 @interface YLT_NewsCell : YLT_BaseComponentCell
 
 @end
+

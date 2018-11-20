@@ -8,8 +8,6 @@
 #import "YLT_PalaceMenuView.h"
 
 @interface YLT_PalaceMenuView ()
-@property (nonatomic, strong) id<YLT_PalaceProtocol> menuData;
-@property (nonatomic, strong) id<YLT_PalaceProtocol> sectionData;
 @property (nonatomic, strong) UIImageView *thumbImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @end
@@ -18,98 +16,78 @@
 
 + (YLT_PalaceMenuView *)ylt_palaceMenuView:(id<YLT_PalaceProtocol>)palaceMenu {
     YLT_PalaceMenuView *menu = [[YLT_PalaceMenuView alloc] init];
-    menu.menuData = palaceMenu;
+    menu.componentData = palaceMenu;
     return menu;
 }
 
-- (void)setSectionData:(id<YLT_PalaceProtocol>)sectionData {
-    _sectionData = sectionData;
-    [self updateFromData:sectionData];
-}
-
-- (void)setMenuData:(id<YLT_PalaceProtocol>)menuData {
-    if (![menuData conformsToProtocol:@protocol(YLT_PalaceProtocol)]) {
+- (void)updateData:(YLT_ComponentModel<YLT_PalaceProtocol> *)data {
+    if (![data conformsToProtocol:@protocol(YLT_PalaceProtocol)]) {
         //没有实现指定的协议
-        NSString *reason = [NSString stringWithFormat:@"%@ 没有实现协议", NSStringFromClass(menuData)];
+        NSString *reason = [NSString stringWithFormat:@"%@ 没有实现协议", NSStringFromClass(data)];
         NSAssert(NO, reason);
         return;
     }
-    _menuData = menuData;
-    [self updateFromData:menuData];
+    if ([data respondsToSelector:@selector(ylt_menuType)]) {
+        switch (data.ylt_menuType) {
+            case MenuTypeOnlyImage: {
+                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                }];
+            }
+                break;
+            case MenuTypeOnlyTitle: {
+                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                }];
+            }
+                break;
+            case MenuTypeImageAtTop: {
+                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.top.equalTo(self);
+                    make.height.equalTo(self).multipliedBy(0.8);
+                }];
+                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.bottom.equalTo(self);
+                    make.height.equalTo(self).multipliedBy(0.2);
+                }];
+            }
+                break;
+            case MenuTypeImageAtLeft: {
+                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.top.bottom.equalTo(self);
+                    make.width.equalTo(self).multipliedBy(0.5);
+                }];
+                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.top.bottom.equalTo(self);
+                    make.width.equalTo(self).multipliedBy(0.5);
+                }];
+            }
+                break;
+            case MenuTypeImageAtRight: {
+                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.top.bottom.equalTo(self);
+                    make.width.equalTo(self).multipliedBy(0.5);
+                }];
+                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.top.bottom.equalTo(self);
+                    make.width.equalTo(self).multipliedBy(0.5);
+                }];
+            }
+                break;
+            case MenuTypeImageAtBottom: {
+                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.bottom.equalTo(self);
+                    make.height.equalTo(self).multipliedBy(0.8);
+                }];
+                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.right.top.equalTo(self);
+                    make.height.equalTo(self).multipliedBy(0.2);
+                }];
+            }
+                break;
+        }
+    }
     
-    if (_thumbImageView) {
-        self.thumbImageView.ylt_image(_menuData.ylt_componentImage);
-        if ([_menuData respondsToSelector:@selector(ylt_constraintMaker)]) {
-            [self.thumbImageView mas_remakeConstraints:_menuData.ylt_constraintMaker];
-        }
-    }
-    if (_nameLabel) {//已经使用了标题
-        if ([_menuData respondsToSelector:@selector(ylt_constraintMaker)]) {
-            [self.nameLabel mas_remakeConstraints:_menuData.ylt_constraintMaker];
-        }
-        self.nameLabel.ylt_text(_menuData.ylt_componentTitle);
-    }
-}
-
-- (void)updateFromData:(id<YLT_PalaceProtocol>)data {
-    switch (data.ylt_menuType) {
-        case MenuTypeOnlyImage: {
-            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
-        }
-            break;
-        case MenuTypeOnlyTitle: {
-            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
-        }
-            break;
-        case MenuTypeImageAtTop: {
-            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.top.equalTo(self);
-                make.height.equalTo(self).multipliedBy(0.8);
-            }];
-            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.bottom.equalTo(self);
-                make.height.equalTo(self).multipliedBy(0.2);
-            }];
-        }
-            break;
-        case MenuTypeImageAtLeft: {
-            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.top.bottom.equalTo(self);
-                make.width.equalTo(self).multipliedBy(0.5);
-            }];
-            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.right.top.bottom.equalTo(self);
-                make.width.equalTo(self).multipliedBy(0.5);
-            }];
-        }
-            break;
-        case MenuTypeImageAtRight: {
-            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.right.top.bottom.equalTo(self);
-                make.width.equalTo(self).multipliedBy(0.5);
-            }];
-            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.top.bottom.equalTo(self);
-                make.width.equalTo(self).multipliedBy(0.5);
-            }];
-        }
-            break;
-        case MenuTypeImageAtBottom: {
-            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.bottom.equalTo(self);
-                make.height.equalTo(self).multipliedBy(0.8);
-            }];
-            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.top.equalTo(self);
-                make.height.equalTo(self).multipliedBy(0.2);
-            }];
-        }
-            break;
-    }
     if (_thumbImageView) {
         if ([data respondsToSelector:@selector(ylt_placeholderImage)] && self.thumbImageView.image == nil) {
             self.thumbImageView.ylt_image(data.ylt_placeholderImage);
@@ -121,6 +99,23 @@
         }
         if ([data respondsToSelector:@selector(ylt_componentTextColor)]) {
             self.nameLabel.textColor = data.ylt_componentTextColor;
+        }
+    }
+    
+    if (_thumbImageView) {
+        if ([data respondsToSelector:@selector(ylt_constraintMaker)]) {
+            [self.thumbImageView mas_remakeConstraints:data.ylt_constraintMaker];
+        }
+        if ([data respondsToSelector:@selector(ylt_componentImage)]) {
+            self.thumbImageView.ylt_image(data.ylt_componentImage);
+        }
+    }
+    if (_nameLabel) {//已经使用了标题
+        if ([data respondsToSelector:@selector(ylt_constraintMaker)]) {
+            [self.nameLabel mas_remakeConstraints:data.ylt_constraintMaker];
+        }
+        if ([data respondsToSelector:@selector(ylt_componentTitle)]) {
+            self.nameLabel.ylt_text(data.ylt_componentTitle);
         }
     }
 }
@@ -160,7 +155,7 @@
 
 - (void)setComponentData:(id)componentData {
     [super setComponentData:componentData];
-    self.mainView.menuData = componentData;
+    self.mainView.componentData = componentData;
 }
 
 - (YLT_PalaceMenuView *)mainView {

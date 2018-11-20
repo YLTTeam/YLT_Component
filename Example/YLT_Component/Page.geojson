@@ -8,9 +8,8 @@
  "ylt_spacing":8,
  "ylt_ratio":2,
  "ylt_cellClassName":"YLT_PalaceMenuCell",
- "ylt_type":1,
- "ylt_menuTitle":"这里是标题",
- "ylt_menuTextColor":"ff0000",
+ "ylt_type":5,
+ "ylt_textColor":"00ff00",
  "ylt_dataSource":[{
                    "username":"alex",
                    "password":"123456",
@@ -44,45 +43,42 @@
  "ylt_leftMargin":18,
  "ylt_rightMargin":18,
  "ylt_spacing":0,
- "ylt_ratio":2,
+ "ylt_ratio":0.667,
  "ylt_cellClassName":"YLT_NewsCell",
  "ylt_type":1,
- "ylt_menuTitle":"这里是标题",
- "ylt_menuTextColor":"ff0000",
+ "ylt_textColor":"00ff00",
+ "ylt_single":1,
+ "ylt_backgroundColor":"ff0000",
+ "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentCompletion:?username=alex&password=123456",
  "ylt_dataSource":[{
-                   "type":0,
+                   "type":1,
                    "ratio":2,
                    "username":"alex",
-                   "password":"123456",
-                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
+                   "password":"123456"
                    },
                    {
-                   "type":1,
+                   "type":2,
                    "ratio":4,
                    "username":"alex",
-                   "password":"123456",
-                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
+                   "password":"123456"
                    },
                    {
-                   "type":1,
+                   "type":2,
                    "ratio":4,
                    "username":"alex",
-                   "password":"123456",
-                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
+                   "password":"123456"
                    },
                    {
-                   "type":1,
+                   "type":2,
                    "ratio":4,
                    "username":"alex",
-                   "password":"123456",
-                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
+                   "password":"123456"
                    },
                    {
-                   "type":1,
+                   "type":2,
                    "ratio":4,
                    "username":"alex",
-                   "password":"123456",
-                   "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentCompletion:?username=alex&password=123456"
+                   "password":"123456"
                    }]
  },
  {
@@ -95,39 +91,41 @@
  "ylt_ratio":2,
  "ylt_cellClassName":"YLT_NewsCell",
  "ylt_type":1,
- "ylt_menuTitle":"这里是标题",
- "ylt_menuTextColor":"ff0000",
+ "ylt_textColor":"0000ff",
+ "ylt_single":0,
+ "ylt_backgroundColor":"ff0000",
  "ylt_dataSource":[{
-                   "type":0,
+                   "type":1,
                    "ratio":2,
                    "username":"alex",
                    "password":"123456",
                    "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
                    },
                    {
-                   "type":1,
+                   "type":2,
                    "ratio":4,
                    "username":"alex",
                    "password":"123456",
                    "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
                    },
                    {
-                   "type":1,
+                   "type":2,
                    "ratio":4,
                    "username":"alex",
                    "password":"123456",
                    "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
                    },
                    {
-                   "type":1,
+                   "type":2,
                    "ratio":4,
                    "username":"alex",
                    "password":"123456",
                    "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
                    },
                    {
-                   "type":1,
+                   "type":2,
                    "ratio":4,
+                   "ylt_textColor":"ffffff",
                    "username":"alex",
                    "password":"123456",
                    "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentCompletion:?username=alex&password=123456"

@@ -7,7 +7,7 @@
 
 #import "YLT_ComponentVC+Delegate.h"
 #import "YLT_BaseComponentCell.h"
-#import "YLT_BaseModel+Component.h"
+#import "YLT_ComponentModel.h"
 #import <YLT_BaseLib/YLT_BaseLib.h>
 #import <YLT_Kit/YLT_Kit.h>
 
@@ -18,10 +18,10 @@
 @implementation YLT_ComponentVC (Delegate)
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    YLT_BaseModel *data = self.list[indexPath.section];
+    YLT_ComponentModel *data = self.list[indexPath.section];
     CGFloat ratio = data.ylt_ratio;
     CGFloat width = (YLT_SCREEN_WIDTH-data.ylt_leftMargin-data.ylt_rightMargin-data.ylt_spacing*(data.ylt_countPreRow-1))/data.ylt_countPreRow;
-    if ([data.ylt_dataSource isKindOfClass:[NSArray class]]) {
+    if (!data.ylt_single && [data.ylt_dataSource isKindOfClass:[NSArray class]]) {
         data = [((NSArray *) data.ylt_dataSource) objectAtIndex:indexPath.row];
         if (data.ylt_ratio != 0) {
             ratio = data.ylt_ratio;
@@ -32,17 +32,17 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    YLT_BaseModel *data = self.list[section];
+    YLT_ComponentModel *data = self.list[section];
     return UIEdgeInsetsMake(data.ylt_topMargin, data.ylt_leftMargin, data.ylt_bottomMargin, data.ylt_rightMargin);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    YLT_BaseModel *data = self.list[section];
+    YLT_ComponentModel *data = self.list[section];
     return data.ylt_spacing;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    YLT_BaseModel *data = self.list[section];
+    YLT_ComponentModel *data = self.list[section];
     return data.ylt_spacing;
 }
 
@@ -51,7 +51,10 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    YLT_BaseModel *data = self.list[section];
+    YLT_ComponentModel *data = self.list[section];
+    if (data.ylt_single) {
+        return 1;
+    }
     if ([data.ylt_dataSource isKindOfClass:[NSArray class]]) {
         return ((NSArray *) data.ylt_dataSource).count;
     }
@@ -59,27 +62,23 @@
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    YLT_BaseModel *sectionData = self.list[indexPath.section];
-    YLT_BaseModel *data = sectionData;
+    YLT_ComponentModel *sectionData = self.list[indexPath.section];
+    YLT_ComponentModel *data = sectionData;
     YLT_BaseComponentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:data.ylt_cellClassName forIndexPath:indexPath];
     if ([data.ylt_dataSource isKindOfClass:[NSArray class]]) {
         data = [((NSArray *) data.ylt_dataSource) objectAtIndex:indexPath.row];
     }
+    
     cell.sectionData = sectionData;
     cell.componentData = data;
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    YLT_BaseModel *data = self.list[indexPath.section];
-    if ([data.ylt_dataSource isKindOfClass:[NSArray class]]) {
-        data = [((NSArray *) data.ylt_dataSource) objectAtIndex:indexPath.row];
-    }
-    if (data.ylt_router.ylt_isValid) {
-        [YLT_RouterManager ylt_routerToURL:data.ylt_router isClassMethod:YES arg:nil completion:^(NSError *error, id response) {
-            YLT_Log(@"%@", response);
-        }];
-    }
+//    YLT_ComponentModel *data = self.list[indexPath.section];
+//    if ([data.ylt_dataSource isKindOfClass:[NSArray class]]) {
+//        data = [((NSArray *) data.ylt_dataSource) objectAtIndex:indexPath.row];
+//    }
 }
 
 @end

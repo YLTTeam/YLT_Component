@@ -10,7 +10,7 @@
 #import "YLT_ComponentProtocol.h"
 
 ///九宫格菜单视图
-@interface YLT_PalaceMenuView : YLT_BaseView
+@interface YLT_PalaceMenuView : YLT_BaseComponentView
 
 /**
  九宫格菜单 item 生成

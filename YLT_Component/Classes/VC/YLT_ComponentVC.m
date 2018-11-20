@@ -6,7 +6,6 @@
 //
 
 #import "YLT_ComponentVC.h"
-#import "YLT_BaseModel+Component.h"
 
 @interface YLT_ComponentVC ()
 @property (nonatomic, strong) NSDictionary *lastPageData;
@@ -21,7 +20,7 @@
 
 - (void)ylt_bindData {
     self.lastPageData = self.ylt_params;
-    NSLog(@"%@", self.lastPageData);
+    YLT_Log(@"%@", self.lastPageData);
     /**
      1、从网络上拿到数据以后赋值给 self.list
      2、将 self.list 中涉及到的Cell 全部注册一遍
@@ -35,7 +34,7 @@
         } else {
             [self.list addObject:obj];
         }
-        [self.list enumerateObjectsUsingBlock:^(YLT_BaseModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.list enumerateObjectsUsingBlock:^(YLT_ComponentModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj respondsToSelector:@selector(ylt_cellClassName)]) {
                 [self.mainCollectionView registerCell:@[obj.ylt_cellClassName]];
             } else {
@@ -49,7 +48,7 @@
 
 #pragma mark - setter getter
 
-- (NSMutableArray<YLT_BaseModel *> *)list {
+- (NSMutableArray<YLT_ComponentModel *> *)list {
     if (!_list) {
         _list = [[NSMutableArray alloc] init];
     }
