@@ -6,7 +6,9 @@
 //
 
 #import "YLT_PalaceMenuView.h"
-#import <UICollectionViewLeftAlignedLayout/UICollectionViewLeftAlignedLayout.h>
+#import <YLT_Kit/YLT_Kit.h>
+#import "YLT_DotView.h"
+#import <TAPageControl/TAPageControl.h>
 
 @interface YLT_PalaceMenuView ()
 @property (nonatomic, strong) UIImageView *thumbImageView;
@@ -136,8 +138,7 @@
 @end
 
 
-@interface YLT_PalaceMenuCell ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
-@property (nonatomic, strong) UICollectionView *horCollectionView;
+@interface YLT_PalaceMenuCell ()
 @property (nonatomic, strong) YLT_PalaceMenuView *mainView;
 @end
 
@@ -146,46 +147,13 @@
 - (void)setSectionData:(YLT_ComponentModel *)sectionData {
     if ([sectionData conformsToProtocol:@protocol(YLT_PalaceProtocol)]) {
         [super setSectionData:sectionData];
-        if (sectionData.ylt_single) {
-            [self horCollectionView];
-            return;
-        }
         self.mainView.sectionData = sectionData;
     }
 }
 
 - (void)setComponentData:(YLT_ComponentModel *)componentData {
     [super setComponentData:componentData];
-    if (self.sectionData && self.sectionData.ylt_single) {
-        return;
-    }
     self.mainView.componentData = componentData;
-}
-
-- (UICollectionView *)horCollectionView {
-    if (!_horCollectionView) {
-        UICollectionViewLeftAlignedLayout *flowLayout = [[UICollectionViewLeftAlignedLayout alloc] init];
-        CGFloat width = (YLT_SCREEN_WIDTH-self.sectionData.ylt_leftMargin-self.sectionData.ylt_rightMargin);
-        CGFloat height = width/self.sectionData.ylt_ratio;
-        width = (width-self.sectionData.ylt_spacing*(self.sectionData.ylt_countPreRow-1))/self.sectionData.ylt_countPreRow;
-        height = (height-self.sectionData.ylt_spacing*(self.sectionData.ylt_rows-1))/self.sectionData.ylt_rows;
-        flowLayout.itemSize = CGSizeMake(width, height);
-        flowLayout.minimumLineSpacing = self.sectionData.ylt_spacing;
-        flowLayout.minimumInteritemSpacing = self.sectionData.ylt_spacing;
-        flowLayout.sectionInset = UIEdgeInsetsZero;
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _horCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-        _horCollectionView.backgroundColor = UIColor.clearColor;
-        _horCollectionView.showsHorizontalScrollIndicator = NO;
-        [_horCollectionView registerCell:@[@"YLT_PalaceMenuCell"]];
-        _horCollectionView.delegate = self;
-        _horCollectionView.dataSource = self;
-        [self addSubview:_horCollectionView];
-        [_horCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
-        }];
-    }
-    return _horCollectionView;
 }
 
 - (YLT_PalaceMenuView *)mainView {
@@ -201,7 +169,14 @@
 
 @end
 
-@implementation YLT_PalaceMenuCell(Delegate)
+
+@interface YLT_PalaceMenuScrollCell()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TAPageControlDelegate> {
+}
+@property (nonatomic, strong) UICollectionView *horCollectionView;
+@property (nonatomic, strong) TAPageControl *pageControl;
+@end
+
+@implementation YLT_PalaceMenuScrollCell
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.sectionData.ylt_dataSource.count;
@@ -214,8 +189,69 @@
         YLT_ComponentModel<YLT_PalaceProtocol> *obj = self.sectionData;
         model.ylt_menuType = obj.ylt_menuType;
     }
+    cell.sectionData = self.sectionData;
     cell.componentData = model;
     return cell;
+}
+
+- (void)setSectionData:(YLT_ComponentModel *)sectionData {
+    if ([sectionData conformsToProtocol:@protocol(YLT_PalaceProtocol)]) {
+        [super setSectionData:sectionData];
+        [self.horCollectionView reloadData];
+        self.pageControl.numberOfPages = ceil(((CGFloat)self.sectionData.ylt_dataSource.count)/((CGFloat)self.sectionData.ylt_countPreRow*self.sectionData.ylt_rows));
+    }
+}
+
+- (void)setComponentData:(YLT_ComponentModel *)componentData {
+    [super setComponentData:componentData];
+}
+
+- (void)TAPageControl:(TAPageControl *)pageControl didSelectPageAtIndex:(NSInteger)index {
+    self.horCollectionView.contentOffset = CGPointMake(self.horCollectionView.ylt_width*index, 0);
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    self.pageControl.currentPage = scrollView.contentOffset.x/scrollView.ylt_width;
+}
+
+- (TAPageControl *)pageControl {
+    if (!_pageControl) {
+        CGFloat width = (YLT_SCREEN_WIDTH-self.sectionData.ylt_leftMargin-self.sectionData.ylt_rightMargin);
+        CGFloat height = width/self.sectionData.ylt_ratio;
+        _pageControl = [[TAPageControl alloc] initWithFrame:CGRectMake(0, height-30, width, 30)];
+        [self addSubview:_pageControl];
+        _pageControl.delegate = self;
+        _pageControl.dotViewClass = [YLT_DotView class];
+        _pageControl.dotSize = CGSizeMake(24, 4);
+    }
+    return _pageControl;
+}
+
+- (UICollectionView *)horCollectionView {
+    if (!_horCollectionView) {
+        YLT_HorizontalFlowLayout *flowLayout = [[YLT_HorizontalFlowLayout alloc] init];
+        flowLayout.minimumLineSpacing = self.sectionData.ylt_spacing;
+        flowLayout.minimumInteritemSpacing = self.sectionData.ylt_spacing;
+        
+        CGFloat width = (YLT_SCREEN_WIDTH-self.sectionData.ylt_leftMargin-self.sectionData.ylt_rightMargin);
+        CGFloat height = width/self.sectionData.ylt_ratio;
+        width = (width-self.sectionData.ylt_spacing*(self.sectionData.ylt_countPreRow-1))/self.sectionData.ylt_countPreRow;
+        height = (height-self.sectionData.ylt_spacing*(self.sectionData.ylt_rows-1))/self.sectionData.ylt_rows;
+        flowLayout.itemSize = CGSizeMake(width, height);
+        flowLayout.sectionInset = UIEdgeInsetsZero;
+        _horCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+        _horCollectionView.backgroundColor = UIColor.clearColor;
+        _horCollectionView.showsHorizontalScrollIndicator = NO;
+        _horCollectionView.pagingEnabled = YES;
+        [_horCollectionView registerCell:@[@"YLT_PalaceMenuCell"]];
+        _horCollectionView.delegate = self;
+        _horCollectionView.dataSource = self;
+        [self addSubview:_horCollectionView];
+        [_horCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+    }
+    return _horCollectionView;
 }
 
 @end

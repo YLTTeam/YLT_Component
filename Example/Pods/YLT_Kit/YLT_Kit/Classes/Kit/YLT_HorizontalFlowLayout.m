@@ -116,9 +116,9 @@
     
     
     //x方向每个item的偏移量
-    CGFloat xCellOffset = remain * cellwidth;
+    CGFloat xCellOffset = remain * cellwidth + self.minimumInteritemSpacing * remain;
     //y方向每个item的偏移量
-    CGFloat yCellOffset = merchant * cellheight;
+    CGFloat yCellOffset = merchant * cellheight + self.minimumLineSpacing * merchant;
     
     //获取每个section中item占了几页
     NSInteger pageRe = (itemCount % allCount == 0)? (itemCount / allCount) : (itemCount / allCount) + 1;

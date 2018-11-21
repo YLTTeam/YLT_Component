@@ -25,6 +25,9 @@
 
 ///九宫格菜单的CELL
 @interface YLT_PalaceMenuCell : YLT_BaseComponentCell
-
 @end
+
+@interface YLT_PalaceMenuScrollCell : YLT_BaseComponentCell
+@end
+
 

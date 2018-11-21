@@ -253,6 +253,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "xphaijj0305@126.com";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = S8JBM2NX4M;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -318,7 +321,7 @@
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/UICollectionViewLeftAlignedLayout/UICollectionViewLeftAlignedLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/TAPageControl/TAPageControl.framework",
 				"${BUILT_PRODUCTS_DIR}/YLT_BaseLib/YLT_BaseLib.framework",
 				"${BUILT_PRODUCTS_DIR}/YLT_Component/YLT_Component.framework",
 				"${BUILT_PRODUCTS_DIR}/YLT_Kit/YLT_Kit.framework",
@@ -334,7 +337,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICollectionViewLeftAlignedLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TAPageControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLT_BaseLib.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLT_Component.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YLT_Kit.framework",
@@ -517,6 +520,7 @@
 			baseConfigurationReference = 83869C5C391373EA96B27AE9 /* Pods-YLT_Component_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = S8JBM2NX4M;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YLT_Component/YLT_Component-Prefix.pch";
 				INFOPLIST_FILE = "YLT_Component/YLT_Component-Info.plist";
@@ -533,6 +537,7 @@
 			baseConfigurationReference = 6FEB5A5ECFCA5B13AB1CEFBA /* Pods-YLT_Component_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = S8JBM2NX4M;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YLT_Component/YLT_Component-Prefix.pch";
 				INFOPLIST_FILE = "YLT_Component/YLT_Component-Info.plist";

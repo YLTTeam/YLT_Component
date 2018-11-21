@@ -26,14 +26,14 @@ PODS:
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
-  - UICollectionViewLeftAlignedLayout (1.0.2)
+  - TAPageControl (0.2.0)
   - YLT_BaseLib (0.3.0):
     - FastCoding
     - FMDB
     - LGAlertView
     - MJExtension
   - YLT_Component (0.1.0):
-    - UICollectionViewLeftAlignedLayout
+    - TAPageControl
     - YLT_BaseLib
     - YLT_Kit
   - YLT_Kit (0.3.1):
@@ -58,7 +58,7 @@ SPEC REPOS:
     - MJRefresh
     - ReactiveObjC
     - SDWebImage
-    - UICollectionViewLeftAlignedLayout
+    - TAPageControl
     - YLT_BaseLib
     - YLT_Kit
 
@@ -76,9 +76,9 @@ SPEC CHECKSUMS:
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
-  UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
+  TAPageControl: fd11d779bbb5c2464ca2f55dde9e288213ea8a9b
   YLT_BaseLib: ea8849d5345c8e8de92bf42410dc08e31699859b
-  YLT_Component: 7d2ee13601e2067b5b95a37e109ad71511ca03d5
+  YLT_Component: c237cece56c3ef16c039d6ae401da5ba9c4ed02e
   YLT_Kit: eb3af277e884dd9a0b66d6f77e8fc25231470b78
 
 PODFILE CHECKSUM: 40d66ee104eb08981ae134b5d08fb3dc96acaf75
