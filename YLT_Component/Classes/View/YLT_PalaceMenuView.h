@@ -12,6 +12,9 @@
 ///九宫格菜单视图
 @interface YLT_PalaceMenuView : YLT_BaseComponentView
 
+@property (nonatomic, assign) MenuType menuType;
+@property (nonatomic, strong) UIImageView *thumbImageView;
+@property (nonatomic, strong) UILabel *nameLabel;
 /**
  九宫格菜单 item 生成
 
@@ -25,6 +28,7 @@
 
 ///九宫格菜单的CELL
 @interface YLT_PalaceMenuCell : YLT_BaseComponentCell
+@property (nonatomic, strong) YLT_PalaceMenuView *mainView;
 @end
 
 @interface YLT_PalaceMenuScrollCell : YLT_BaseComponentCell

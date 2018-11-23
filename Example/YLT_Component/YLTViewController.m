@@ -93,6 +93,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    scrollView.pagingEnabled = YES;
+    
+    YLT_TopTabView *topView = [YLT_TopTabView ylt_topTabFromTitls:@[@"标题1", @"标题2", @"标题3",@"标题1", @"标题2", @"标题3",@"标题1", @"标题2", @"标题3"] targetScrollView:scrollView];
+    [self.view addSubview:topView];
+    [topView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.view);
+        make.height.equalTo(@50);
+    }];
+    [self.view addSubview:scrollView];
+    [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(topView.mas_bottom);
+    }];
+    UIView *lastView = [[UIView alloc] init];
+    [scrollView addSubview:lastView];
+    lastView.backgroundColor = UIColor.redColor;
+    [lastView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.equalTo(scrollView);
+        make.width.equalTo(self.view);
+        make.height.equalTo(self.view).offset(-50);
+    }];
+    
+    for (int i = 0; i < 7; i++) {
+        UIView *view = [[UIView alloc] init];
+        view.backgroundColor = UIColor.greenColor;
+        [scrollView addSubview:view];
+        [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(lastView.mas_right);
+            make.top.bottom.width.equalTo(lastView);
+        }];
+        lastView = view;
+    }
+    
+    UIView *view = [[UIView alloc] init];
+    [scrollView addSubview:view];
+    view.backgroundColor = UIColor.blueColor;
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.top.bottom.equalTo(lastView);
+        make.left.equalTo(lastView.mas_right);
+        make.right.equalTo(scrollView);
+    }];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

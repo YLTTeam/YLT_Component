@@ -16,9 +16,11 @@
 #import "YLT_ComponentRouter.h"
 #import "YLT_ComponentVC+Delegate.h"
 #import "YLT_ComponentVC.h"
+#import "YLT_TopTabVC.h"
 #import "YLT_DotView.h"
 #import "YLT_NewsView.h"
 #import "YLT_PalaceMenuView.h"
+#import "YLT_TopTabView.h"
 #import "YLT_Component.h"
 
 FOUNDATION_EXPORT double YLT_ComponentVersionNumber;

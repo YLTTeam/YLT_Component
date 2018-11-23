@@ -11,8 +11,6 @@
 #import <TAPageControl/TAPageControl.h>
 
 @interface YLT_PalaceMenuView ()
-@property (nonatomic, strong) UIImageView *thumbImageView;
-@property (nonatomic, strong) UILabel *nameLabel;
 @end
 
 @implementation YLT_PalaceMenuView
@@ -31,64 +29,7 @@
         return;
     }
     if ([data respondsToSelector:@selector(ylt_menuType)]) {
-        switch (data.ylt_menuType) {
-            case MenuTypeOnlyImage: {
-                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(self);
-                }];
-            }
-                break;
-            case MenuTypeOnlyTitle: {
-                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.edges.equalTo(self);
-                }];
-            }
-                break;
-            case MenuTypeImageAtTop: {
-                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.right.top.equalTo(self);
-                    make.height.equalTo(self).multipliedBy(0.8);
-                }];
-                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.right.bottom.equalTo(self);
-                    make.height.equalTo(self).multipliedBy(0.2);
-                }];
-            }
-                break;
-            case MenuTypeImageAtLeft: {
-                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.top.bottom.equalTo(self);
-                    make.width.equalTo(self).multipliedBy(0.5);
-                }];
-                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.right.top.bottom.equalTo(self);
-                    make.width.equalTo(self).multipliedBy(0.5);
-                }];
-            }
-                break;
-            case MenuTypeImageAtRight: {
-                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.right.top.bottom.equalTo(self);
-                    make.width.equalTo(self).multipliedBy(0.5);
-                }];
-                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.top.bottom.equalTo(self);
-                    make.width.equalTo(self).multipliedBy(0.5);
-                }];
-            }
-                break;
-            case MenuTypeImageAtBottom: {
-                [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.right.bottom.equalTo(self);
-                    make.height.equalTo(self).multipliedBy(0.8);
-                }];
-                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.right.top.equalTo(self);
-                    make.height.equalTo(self).multipliedBy(0.2);
-                }];
-            }
-                break;
-        }
+        self.menuType = data.ylt_menuType;
     }
     
     if (_thumbImageView) {
@@ -118,6 +59,68 @@
     }
 }
 
+- (void)setMenuType:(MenuType)menuType {
+    _menuType = menuType;
+    switch (_menuType) {
+        case MenuTypeOnlyImage: {
+            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self);
+            }];
+        }
+            break;
+        case MenuTypeOnlyTitle: {
+            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self);
+            }];
+        }
+            break;
+        case MenuTypeImageAtTop: {
+            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.top.equalTo(self);
+                make.height.equalTo(self).multipliedBy(0.8);
+            }];
+            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.bottom.equalTo(self);
+                make.height.equalTo(self).multipliedBy(0.2);
+            }];
+        }
+            break;
+        case MenuTypeImageAtLeft: {
+            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.top.bottom.equalTo(self);
+                make.width.equalTo(self).multipliedBy(0.5);
+            }];
+            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.right.top.bottom.equalTo(self);
+                make.width.equalTo(self).multipliedBy(0.5);
+            }];
+        }
+            break;
+        case MenuTypeImageAtRight: {
+            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.right.top.bottom.equalTo(self);
+                make.width.equalTo(self).multipliedBy(0.5);
+            }];
+            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.top.bottom.equalTo(self);
+                make.width.equalTo(self).multipliedBy(0.5);
+            }];
+        }
+            break;
+        case MenuTypeImageAtBottom: {
+            [self.thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.bottom.equalTo(self);
+                make.height.equalTo(self).multipliedBy(0.8);
+            }];
+            [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.top.equalTo(self);
+                make.height.equalTo(self).multipliedBy(0.2);
+            }];
+        }
+            break;
+    }
+}
+
 - (UIImageView *)thumbImageView {
     if (!_thumbImageView) {
         _thumbImageView = UIImageView.ylt_create().ylt_convertToImageView().ylt_contentMode(UIViewContentModeScaleAspectFill);
@@ -139,7 +142,6 @@
 
 
 @interface YLT_PalaceMenuCell ()
-@property (nonatomic, strong) YLT_PalaceMenuView *mainView;
 @end
 
 @implementation YLT_PalaceMenuCell

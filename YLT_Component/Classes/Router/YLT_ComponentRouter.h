@@ -18,6 +18,14 @@
 + (id)ylt_componentVCRouter:(id)params;
 
 /**
+ 顶部带Tab的视图
+
+ @param params 参数
+ @return 回参
+ */
++ (id)ylt_componentTopTabVC:(id)params;
+
+/**
  路由回调
 
  @param params 回调参数

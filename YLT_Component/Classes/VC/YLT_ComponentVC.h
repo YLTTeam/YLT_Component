@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) NSMutableArray<YLT_ComponentModel *> *list;
 
+@property (nonatomic, strong) UICollectionView *mainCollectionView;
+
 @end

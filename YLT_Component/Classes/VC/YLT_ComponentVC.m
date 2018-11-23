@@ -9,7 +9,6 @@
 
 @interface YLT_ComponentVC ()
 @property (nonatomic, strong) NSDictionary *lastPageData;
-@property (nonatomic, strong) UICollectionView *mainCollectionView;
 @end
 
 @implementation YLT_ComponentVC
