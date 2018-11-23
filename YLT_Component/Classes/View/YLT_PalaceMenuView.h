@@ -15,6 +15,7 @@
 @property (nonatomic, assign) MenuType menuType;
 @property (nonatomic, strong) UIImageView *thumbImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *dotLabel;
 /**
  九宫格菜单 item 生成
 

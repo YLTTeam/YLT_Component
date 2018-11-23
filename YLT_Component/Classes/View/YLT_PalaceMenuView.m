@@ -57,6 +57,26 @@
             self.nameLabel.ylt_text(data.ylt_componentTitle);
         }
     }
+    if (data.ylt_badge.ylt_isValid) {
+        self.dotLabel.hidden = NO;
+        self.dotLabel.text = data.ylt_badge;
+        [self.dotLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-8);
+            make.top.equalTo(self).offset(8);
+            make.height.equalTo(@12);
+        }];
+        self.dotLabel.layer.cornerRadius = 6;
+    } else if (data.ylt_badge != nil) {
+        self.dotLabel.hidden = NO;
+        [self.dotLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-8);
+            make.top.equalTo(self).offset(8);
+            make.width.height.equalTo(@6);
+        }];
+        self.dotLabel.layer.cornerRadius = 3;
+    } else {
+        _dotLabel.hidden = YES;
+    }
 }
 
 - (void)setMenuType:(MenuType)menuType {
@@ -136,6 +156,17 @@
         [self addSubview:_nameLabel];
     }
     return _nameLabel;
+}
+
+- (UILabel *)dotLabel {
+    if (!_dotLabel) {
+        _dotLabel = UILabel.ylt_createLayout(self, ^(MASConstraintMaker *make) {
+            make.right.equalTo(self).offset(-8);
+            make.top.equalTo(self).offset(8);
+        }).ylt_backgroundColor(UIColor.redColor).ylt_convertToLabel().ylt_fontSize(10).ylt_textColor(UIColor.whiteColor);
+        _dotLabel.layer.masksToBounds = YES;
+    }
+    return _dotLabel;
 }
 
 @end

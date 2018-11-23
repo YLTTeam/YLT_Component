@@ -12,6 +12,7 @@
  "ylt_type":5,
  "ylt_textColor":"00ff00",
  "ylt_dataSource":[{
+                   "ylt_badge":"new",
                    "username":"alex",
                    "password":"123456",
                    "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
@@ -27,6 +28,7 @@
                    "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"
                    },
                    {
+                   "ylt_badge":"",
                    "username":"alex",
                    "password":"123456",
                    "ylt_router":"ylt://YLT_ComponentRouter/ylt_componentVCRouter:?username=alex&password=123456"

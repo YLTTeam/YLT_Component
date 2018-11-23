@@ -112,4 +112,11 @@
     return self.ylt_backgroundColor.ylt_colorFromHexString;
 }
 
+- (NSString *)ylt_badge {
+    if (self.ylt_sourceData && ![((NSDictionary *)self.ylt_sourceData).allKeys containsObject:@"ylt_badge"]) {
+        _ylt_badge = nil;
+    }
+    return _ylt_badge;
+}
+
 @end

@@ -42,5 +42,7 @@
 @property (nonatomic, assign) BOOL ylt_single;
 
 @property (nonatomic, strong) UIColor *ylt_bgColor;
+/** 小红点显示 */
+@property (nonatomic, strong) NSString *ylt_badge;
 
 @end
