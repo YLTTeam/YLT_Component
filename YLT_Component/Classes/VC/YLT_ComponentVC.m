@@ -13,6 +13,8 @@
 
 @implementation YLT_ComponentVC
 
+@synthesize list = _list;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
@@ -29,23 +31,30 @@
     if ([self.lastPageData.allKeys containsObject:@"ylt_arg"]) {
         id obj = self.lastPageData[@"ylt_arg"];
         if ([obj isKindOfClass:[NSArray class]]) {
-            [self.list addObjectsFromArray:(NSArray *)obj];
+            self.list = obj;
         } else {
-            [self.list addObject:obj];
+            self.list = @[obj];
         }
-        [self.list enumerateObjectsUsingBlock:^(YLT_ComponentModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj respondsToSelector:@selector(ylt_cellClassName)]) {
-                [self.mainCollectionView registerCell:@[obj.ylt_cellClassName]];
-            } else {
-                NSAssert(NO, @"组件类Model异常");
-            }
-        }];
     }
-    
-    [self.mainCollectionView reloadData];
 }
 
 #pragma mark - setter getter
+
+- (void)setList:(NSMutableArray<YLT_ComponentModel *> *)list {
+    if (!_list) {
+        _list = [[NSMutableArray alloc] init];
+    }
+    [_list removeAllObjects];
+    [_list addObjectsFromArray:list];
+    [_list enumerateObjectsUsingBlock:^(YLT_ComponentModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj respondsToSelector:@selector(ylt_cellClassName)]) {
+            [self.mainCollectionView registerCell:@[obj.ylt_cellClassName]];
+        } else {
+            NSAssert(NO, @"组件类Model异常");
+        }
+    }];
+    [self.mainCollectionView reloadData];
+}
 
 - (NSMutableArray<YLT_ComponentModel *> *)list {
     if (!_list) {

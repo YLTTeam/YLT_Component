@@ -1,16 +1,15 @@
 //
-//  TAAnimatedDotView.m
+//  TADotView.m
 //  TAPageControl
 //
 //  Created by Tanguy Aladenise on 2015-01-22.
 //  Copyright (c) 2015 Tanguy Aladenise. All rights reserved.
 //
 
-#import "TAAnimatedDotView.h"
+#import "TADotView.h"
 
-static CGFloat const kAnimateDuration = 1;
+@implementation TADotView
 
-@implementation TAAnimatedDotView
 
 - (instancetype)init
 {
@@ -43,7 +42,6 @@ static CGFloat const kAnimateDuration = 1;
     return self;
 }
 
-
 - (void)initialization
 {
     self.backgroundColor    = [UIColor clearColor];
@@ -56,27 +54,10 @@ static CGFloat const kAnimateDuration = 1;
 - (void)changeActivityState:(BOOL)active
 {
     if (active) {
-        [self animateToActiveState];
-    } else {
-        [self animateToDeactiveState];
-    }
-}
-
-
-- (void)animateToActiveState
-{
-    [UIView animateWithDuration:kAnimateDuration delay:0 usingSpringWithDamping:.5 initialSpringVelocity:-20 options:UIViewAnimationOptionCurveLinear animations:^{
         self.backgroundColor = [UIColor whiteColor];
-        self.transform = CGAffineTransformMakeScale(1.4, 1.4);
-    } completion:nil];
-}
-
-- (void)animateToDeactiveState
-{
-    [UIView animateWithDuration:kAnimateDuration delay:0 usingSpringWithDamping:.5 initialSpringVelocity:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    } else {
         self.backgroundColor = [UIColor clearColor];
-        self.transform = CGAffineTransformIdentity;
-    } completion:nil];
+    }
 }
 
 @end

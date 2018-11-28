@@ -8,7 +8,7 @@
 #import "YLT_PalaceMenuView.h"
 #import <YLT_Kit/YLT_Kit.h>
 #import "YLT_DotView.h"
-#import <TAPageControl/TAPageControl.h>
+#import <SDCycleScrollView/TAPageControl.h>
 
 @interface YLT_PalaceMenuView ()
 @end

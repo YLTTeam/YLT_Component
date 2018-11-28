@@ -6,7 +6,13 @@
 //
 
 #import <YLT_Kit/YLT_Kit.h>
+#import "YLT_ComponentModel.h"
+#import "YLT_ComponentProtocol.h"
 
 @interface YLT_TopTabVC : YLT_BaseVC
+
+@property (nonatomic, strong) NSMutableArray<YLT_TopTabProtocol> *list;
+
+@property (nonatomic, strong) UIScrollView *mainScrollView;
 
 @end

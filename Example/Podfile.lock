@@ -23,17 +23,18 @@ PODS:
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.7)
   - ReactiveObjC (3.1.0)
+  - SDCycleScrollView (1.75):
+    - SDWebImage (>= 4.0.0)
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
-  - TAPageControl (0.2.0)
   - YLT_BaseLib (0.3.0):
     - FastCoding
     - FMDB
     - LGAlertView
     - MJExtension
   - YLT_Component (0.1.0):
-    - TAPageControl
+    - SDCycleScrollView
     - YLT_BaseLib
     - YLT_Kit
   - YLT_Kit (0.3.1):
@@ -57,8 +58,8 @@ SPEC REPOS:
     - MJExtension
     - MJRefresh
     - ReactiveObjC
+    - SDCycleScrollView
     - SDWebImage
-    - TAPageControl
     - YLT_BaseLib
     - YLT_Kit
 
@@ -75,10 +76,10 @@ SPEC CHECKSUMS:
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
+  SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
-  TAPageControl: fd11d779bbb5c2464ca2f55dde9e288213ea8a9b
   YLT_BaseLib: ea8849d5345c8e8de92bf42410dc08e31699859b
-  YLT_Component: c237cece56c3ef16c039d6ae401da5ba9c4ed02e
+  YLT_Component: 0837277bc2109eaf2a9b59a1d4ed2ddd92187b2c
   YLT_Kit: eb3af277e884dd9a0b66d6f77e8fc25231470b78
 
 PODFILE CHECKSUM: 40d66ee104eb08981ae134b5d08fb3dc96acaf75

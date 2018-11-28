@@ -11,7 +11,6 @@
 @interface YLT_TopTabView()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
 }
 @property (nonatomic, strong) UICollectionView *mainCollectionView;
-@property (nonatomic, strong) NSArray<NSString *> *titles;
 @property (nonatomic, strong) UIImageView *selectedImageView;
 @end
 
@@ -27,17 +26,16 @@
  @param targetScrollView 下方的
  @return 顶部Tab
  */
-+ (YLT_TopTabView *)ylt_topTabFromTitls:(NSArray<NSString *> *)titles
-                       targetScrollView:(UIScrollView *)targetScrollView {
++ (YLT_TopTabView *)ylt_topTabFromTitles:(NSArray<NSString *> *)titles
+                        targetScrollView:(UIScrollView *)targetScrollView {
     YLT_TopTabView *result = [[YLT_TopTabView alloc] init];
     result.targetScrollView = targetScrollView;
     result.titles = titles;
-    [result selectedImageView];
     return result;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.ylt_width/MIN(5, self.titles.count), self.ylt_height);
+    return CGSizeMake(self.ylt_width/MIN(5, MAX(self.titles.count, 1)), self.ylt_height);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -78,6 +76,9 @@
             }
             cell.mainView.nameLabel.textColor = (indexPath.row == selectedIndex) ? self.selectedColor : self.normalColor;
         }];
+        if (index > self.titles.count-1) {
+            index = self.titles.count-1;
+        }
         if (index != 0) {
             [self.mainCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0] atScrollPosition:(index==-1)?UICollectionViewScrollPositionLeft:UICollectionViewScrollPositionRight animated:YES];
         }
@@ -135,26 +136,33 @@
 
 - (UIImageView *)selectedImageView {
     if (!_selectedImageView) {
-        _selectedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.ylt_height-4, self.ylt_width/MIN(5, self.titles.count), self.ylt_height)];
+        _selectedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.ylt_height-4, self.ylt_width/MIN(5, MAX(self.titles.count, 1)), self.ylt_height)];
         _selectedImageView.backgroundColor = self.selectedColor;
         [self.mainCollectionView addSubview:_selectedImageView];
         [_selectedImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mainCollectionView);
             make.bottom.equalTo(self);
-            make.width.equalTo(self).multipliedBy(1./((CGFloat)MIN(5, self.titles.count)));
+            make.width.equalTo(self).multipliedBy(1./((CGFloat)MIN(5, MAX(self.titles.count, 1))));
             make.height.mas_equalTo(2);
         }];
+        @weakify(self);
         if (self.targetScrollView) {
-            @weakify(self);
             [RACObserve(self.targetScrollView, contentOffset) subscribeNext:^(NSValue *_Nullable x) {
                 @strongify(self);
                 CGPoint offset = [x CGPointValue];
-                if (self.ylt_width != 0) {
+                if (self.ylt_width != 0 && self.targetScrollView.ylt_width != 0) {
                     [self.selectedImageView mas_updateConstraints:^(MASConstraintMaker *make) {
                         make.left.mas_equalTo(self.selectedImageView.ylt_width*offset.x/self.ylt_width);
                     }];
                     self.selectedIndex = offset.x/self.targetScrollView.ylt_width;
                 }
+            }];
+        } else {
+            [RACObserve(self, selectedIndex) subscribeNext:^(NSNumber*  _Nullable x) {
+                @strongify(self);
+                [self.selectedImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(self.selectedImageView.ylt_width*x.integerValue);
+                }];
             }];
         }
     }
@@ -163,7 +171,12 @@
 
 - (void)setTitles:(NSArray<NSString *> *)titles {
     _titles = titles;
+    [self selectedImageView];
     [self.mainCollectionView reloadData];
 }
 
 @end
+
+
+
+

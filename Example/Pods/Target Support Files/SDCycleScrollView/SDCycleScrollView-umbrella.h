@@ -14,7 +14,10 @@
 #import "TAAnimatedDotView.h"
 #import "TADotView.h"
 #import "TAPageControl.h"
+#import "SDCollectionViewCell.h"
+#import "SDCycleScrollView.h"
+#import "UIView+SDExtension.h"
 
-FOUNDATION_EXPORT double TAPageControlVersionNumber;
-FOUNDATION_EXPORT const unsigned char TAPageControlVersionString[];
+FOUNDATION_EXPORT double SDCycleScrollViewVersionNumber;
+FOUNDATION_EXPORT const unsigned char SDCycleScrollViewVersionString[];
 

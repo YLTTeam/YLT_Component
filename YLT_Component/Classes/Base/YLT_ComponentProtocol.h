@@ -103,4 +103,19 @@ typedef NS_ENUM(NSInteger, NewsType) {
 
 @end
 
+@protocol YLT_TopTabProtocol<NSObject, YLT_ComponentActionProtocol, YLT_ImageViewProtocol, YLT_LabelProtocol>
+
+@optional
+/**
+ Tab 标题
+ */
+@property (nonatomic, strong) NSString *ylt_tabTitle;
+/**
+ Tab 标题
+ */
+@property (nonatomic, strong) NSArray *ylt_dataSource;
+
+@end
+
+
 

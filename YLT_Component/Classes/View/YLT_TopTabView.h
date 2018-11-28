@@ -6,6 +6,8 @@
 //
 
 #import <YLT_Kit/YLT_Kit.h>
+#import "YLT_BaseComponentCell.h"
+#import "YLT_ComponentProtocol.h"
 
 @interface YLT_TopTabView : YLT_BaseView
 
@@ -29,13 +31,20 @@
 @property (nonatomic, assign) NSInteger selectedIndex;
 
 /**
+ 标题列表
+ */
+@property (nonatomic, strong) NSArray<NSString *> *titles;
+
+/**
  生成顶部Tab
 
  @param titles 标题列表
  @param targetScrollView 下方的
  @return 顶部Tab
  */
-+ (YLT_TopTabView *)ylt_topTabFromTitls:(NSArray<NSString *> *)titles
-                       targetScrollView:(UIScrollView *)targetScrollView;
++ (YLT_TopTabView *)ylt_topTabFromTitles:(NSArray<NSString *> *)titles
+                        targetScrollView:(UIScrollView *)targetScrollView;
 
 @end
+
+
