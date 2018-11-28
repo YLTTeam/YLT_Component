@@ -21,7 +21,6 @@
 
 - (void)ylt_bindData {
     self.lastPageData = self.ylt_params;
-    YLT_Log(@"%@", self.lastPageData);
     /**
      1、从网络上拿到数据以后赋值给 self.list
      2、将 self.list 中涉及到的Cell 全部注册一遍

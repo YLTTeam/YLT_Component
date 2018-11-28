@@ -70,7 +70,6 @@
     if ([data.ylt_dataSource isKindOfClass:[NSArray class]]) {
         data = [((NSArray *) data.ylt_dataSource) objectAtIndex:indexPath.row];
     }
-    
     cell.sectionData = sectionData;
     cell.componentData = data;
     return cell;

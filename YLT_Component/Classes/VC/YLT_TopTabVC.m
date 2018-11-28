@@ -11,34 +11,6 @@
 
 #define TOP_TAB_HEIGHT 48
 
-@interface YLT_TopTabCell : UICollectionViewCell
-
-@property (nonatomic, strong) YLT_ComponentVC *targetVC;
-
-@property (nonatomic, strong) YLT_ComponentModel *model;
-
-@end
-
-@implementation YLT_TopTabCell
-
-- (void)setModel:(YLT_ComponentModel *)model {
-    _model = model;
-    self.targetVC.list = model.ylt_dataSource;
-}
-
-- (YLT_ComponentVC *)targetVC {
-    if (!_targetVC) {
-        _targetVC = [[YLT_ComponentVC alloc] init];
-        [self addSubview:_targetVC.mainCollectionView];
-        [_targetVC.mainCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
-        }];
-    }
-    return _targetVC;
-}
-
-@end
-
 @interface YLT_TopTabVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) YLT_TopTabView *topTab;
 @property (nonatomic, strong) NSMutableArray *titles;
@@ -89,6 +61,7 @@
         _mainScrollView.pagingEnabled = YES;
         _mainScrollView.delegate = self;
         _mainScrollView.showsHorizontalScrollIndicator = NO;
+        _mainScrollView.directionalLockEnabled = YES;
         [self.view addSubview:_mainScrollView];
         [_mainScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.width.equalTo(self.view);
@@ -114,8 +87,9 @@
     [self.datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         YLT_ComponentVC *currentTargetVC = [[YLT_ComponentVC alloc] init];
         [self addChildViewController:currentTargetVC];
-        currentTargetVC.list = obj;
+        [currentTargetVC didMoveToParentViewController:self];
         [self.mainScrollView addSubview:currentTargetVC.view];
+        currentTargetVC.list = obj;
         if (idx == 0) {
             [currentTargetVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.top.bottom.equalTo(self.mainScrollView);
@@ -136,6 +110,7 @@
         }
         lastTargetVC = currentTargetVC;
     }];
+    
     self.topTab.titles = self.titles;
 }
 

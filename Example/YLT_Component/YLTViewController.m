@@ -218,7 +218,6 @@
         TabModel *tabModel = [[TabModel alloc] init];
         [data addObject:tabModel];
     }
-    
     [YLT_RouterManager ylt_routerToURL:@"ylt://YLT_ComponentRouter/ylt_componentTopTabVC:?username=alex&password=123456" isClassMethod:YES arg:data completion:^(NSError *error, id response) {
         NSLog(@"%@", response);
     }];
