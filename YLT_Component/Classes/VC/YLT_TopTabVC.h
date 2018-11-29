@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) NSMutableArray<YLT_TopTabProtocol> *list;
 
-@property (nonatomic, strong) UIScrollView *mainScrollView;
+@property (nonatomic, strong) UICollectionView *mainCollectionView;
 
 @end

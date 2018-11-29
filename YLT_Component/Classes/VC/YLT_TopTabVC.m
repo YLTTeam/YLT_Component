@@ -11,6 +11,28 @@
 
 #define TOP_TAB_HEIGHT 48
 
+@interface YLT_TopTabCell : YLT_BaseComponentCell
+
+@property (nonatomic, strong) YLT_ComponentVC *targetVC;
+
+@end
+
+@implementation YLT_TopTabCell
+
+- (YLT_ComponentVC *)targetVC {
+    if (!_targetVC) {
+        _targetVC = [[YLT_ComponentVC alloc] init];
+        [self addSubview:_targetVC.view];
+        [_targetVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+        [self.ylt_currentVC addChildViewController:_targetVC];
+    }
+    return _targetVC;
+}
+
+@end
+
 @interface YLT_TopTabVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) YLT_TopTabView *topTab;
 @property (nonatomic, strong) NSMutableArray *titles;
@@ -41,11 +63,25 @@
 - (void)ylt_addSubViews {
 }
 
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.datas.count;
+}
+
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    YLT_TopTabCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:YLT_TopTabCell.ylt_identify forIndexPath:indexPath];
+    cell.targetVC.list = self.datas[indexPath.row];
+    cell.targetVC.mainCollectionView.contentOffset = CGPointZero;
+    return cell;
+}
+
 #pragma mark - setter getter
 
 - (YLT_TopTabView *)topTab {
     if (!_topTab) {
-        _topTab = [YLT_TopTabView ylt_topTabFromTitles:self.titles targetScrollView:self.mainScrollView];
+        _topTab = [YLT_TopTabView ylt_topTabFromTitles:self.titles targetScrollView:self.mainCollectionView];
         [self.view addSubview:_topTab];
         [_topTab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.equalTo(self.view);
@@ -55,21 +91,29 @@
     return _topTab;
 }
 
-- (UIScrollView *)mainScrollView {
-    if (!_mainScrollView) {
-        _mainScrollView = [[UIScrollView alloc] init];
-        _mainScrollView.pagingEnabled = YES;
-        _mainScrollView.delegate = self;
-        _mainScrollView.showsHorizontalScrollIndicator = NO;
-        _mainScrollView.directionalLockEnabled = YES;
-        [self.view addSubview:_mainScrollView];
-        [_mainScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+- (UICollectionView *)mainCollectionView {
+    if (!_mainCollectionView) {
+        UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
+        flowlayout.minimumLineSpacing = 0;
+        flowlayout.minimumInteritemSpacing = 0;
+        flowlayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        flowlayout.itemSize = CGSizeMake(YLT_SCREEN_WIDTH, YLT_SCREEN_HEIGHT-NAVIGATION_BAR_HEIGHT-TOP_TAB_HEIGHT);
+        _mainCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowlayout];
+        _mainCollectionView.backgroundColor = UIColor.clearColor;
+        _mainCollectionView.pagingEnabled = YES;
+        _mainCollectionView.delegate = self;
+        _mainCollectionView.dataSource = self;
+        _mainCollectionView.showsHorizontalScrollIndicator = NO;
+        _mainCollectionView.directionalLockEnabled = YES;
+        [_mainCollectionView registerCell:@[YLT_TopTabCell.ylt_identify]];
+        [self.view addSubview:_mainCollectionView];
+        [_mainCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.width.equalTo(self.view);
             make.top.mas_equalTo(TOP_TAB_HEIGHT);
             make.height.equalTo(self.view).offset(-TOP_TAB_HEIGHT);
         }];
     }
-    return _mainScrollView;
+    return _mainCollectionView;
 }
 
 - (void)setList:(NSMutableArray<YLT_ComponentModel<YLT_TopTabProtocol> *> *)list {
@@ -83,34 +127,6 @@
             [self.datas addObject:obj.ylt_dataSource];
         }
     }];
-    __block YLT_ComponentVC *lastTargetVC = nil;
-    [self.datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        YLT_ComponentVC *currentTargetVC = [[YLT_ComponentVC alloc] init];
-        [self addChildViewController:currentTargetVC];
-        [currentTargetVC didMoveToParentViewController:self];
-        [self.mainScrollView addSubview:currentTargetVC.view];
-        currentTargetVC.list = obj;
-        if (idx == 0) {
-            [currentTargetVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.top.bottom.equalTo(self.mainScrollView);
-                make.height.equalTo(self.view).offset(-TOP_TAB_HEIGHT);
-                make.width.equalTo(self.view);
-            }];
-        } else if (idx == self.datas.count-1) {
-            [currentTargetVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(lastTargetVC.view.mas_right);
-                make.centerY.height.width.equalTo(lastTargetVC.view);
-                make.right.equalTo(self.mainScrollView);
-            }];
-        } else {
-            [currentTargetVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(lastTargetVC.view.mas_right);
-                make.centerY.height.width.equalTo(lastTargetVC.view);
-            }];
-        }
-        lastTargetVC = currentTargetVC;
-    }];
-    
     self.topTab.titles = self.titles;
 }
 

@@ -212,16 +212,17 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    NSArray *list = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Page" ofType:@"geojson"]] options:NSJSONReadingAllowFragments error:nil];
+    NSLog(@"------");
+    NSArray *list = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Page" ofType:@"geojson"]] options:NSJSONReadingAllowFragments error:nil];
     NSMutableArray *data = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 15; i++) {
         TabModel *tabModel = [[TabModel alloc] init];
         [data addObject:tabModel];
     }
     [YLT_RouterManager ylt_routerToURL:@"ylt://YLT_ComponentRouter/ylt_componentTopTabVC:?username=alex&password=123456" isClassMethod:YES arg:data completion:^(NSError *error, id response) {
         NSLog(@"%@", response);
     }];
-    
+    NSLog(@"------");
 //    NSArray *list = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Page" ofType:@"geojson"]] options:NSJSONReadingAllowFragments error:nil];
 //    NSMutableArray *data = [[NSMutableArray alloc] init];
 //    for (int i = 0; i < list.count; i++) {

@@ -230,6 +230,7 @@
 - (void)setSectionData:(YLT_ComponentModel *)sectionData {
     if ([sectionData conformsToProtocol:@protocol(YLT_PalaceProtocol)]) {
         [super setSectionData:sectionData];
+        self.horCollectionView.contentOffset = CGPointZero;
         [self.horCollectionView reloadData];
         self.pageControl.numberOfPages = ceil(((CGFloat)self.sectionData.ylt_dataSource.count)/((CGFloat)self.sectionData.ylt_countPreRow*self.sectionData.ylt_rows));
     }
