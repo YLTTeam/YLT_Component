@@ -35,6 +35,10 @@
 @property (nonatomic, assign) NSInteger selectedIndex;
 
 /**
+ 文字的字体
+ */
+@property (nonatomic, strong) UIFont *font;
+/**
  标题列表
  */
 @property (nonatomic, strong) NSArray<NSString *> *titles;

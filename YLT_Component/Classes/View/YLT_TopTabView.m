@@ -46,6 +46,9 @@
     cell.mainView.menuType = MenuTypeOnlyTitle;
     cell.mainView.nameLabel.text = self.titles[indexPath.row];
     cell.mainView.nameLabel.textColor = (self.selectedIndex == indexPath.row) ? self.selectedColor : self.normalColor;
+    if (self.font) {
+        cell.mainView.nameLabel.font = self.font;
+    }
     return cell;
 }
 
