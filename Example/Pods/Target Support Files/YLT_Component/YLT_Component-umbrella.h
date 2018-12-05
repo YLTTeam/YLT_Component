@@ -17,6 +17,7 @@
 #import "YLT_ComponentVC+Delegate.h"
 #import "YLT_ComponentVC.h"
 #import "YLT_TopTabVC.h"
+#import "YLT_CycleScrollView.h"
 #import "YLT_DotView.h"
 #import "YLT_NewsView.h"
 #import "YLT_PalaceMenuView.h"

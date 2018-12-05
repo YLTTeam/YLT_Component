@@ -19,6 +19,10 @@
  选中颜色
  */
 @property (nonatomic, strong) UIColor *selectedColor;
+/**
+ 下方的标签栏 默认为 selectedColor
+ */
+@property (nonatomic, strong) UIImageView *selectedImageView;
 
 /**
  记录一下主滚动视图

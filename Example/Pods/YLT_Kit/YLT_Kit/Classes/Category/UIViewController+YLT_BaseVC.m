@@ -10,6 +10,7 @@
 #import <objc/message.h>
 #import <YLT_BaseLib/YLT_BaseLib.h>
 #import <ReactiveObjC/ReactiveObjC.h>
+#import <Aspects/Aspects.h>
 
 @implementation UIViewController (YLT_BaseVC)
 
@@ -29,7 +30,6 @@
 
 #pragma mark - hook
 - (void)ylt_viewDidLoad {
-    [self ylt_viewDidLoad];
     if ([self respondsToSelector:@selector(ylt_bindData)]) {
         [self performSelector:@selector(ylt_bindData)];
     }
@@ -42,6 +42,7 @@
     if ([self respondsToSelector:@selector(ylt_request)]) {
         [self performSelector:@selector(ylt_request)];
     }
+    [self ylt_viewDidLoad];
 }
 
 - (void)ylt_viewWillAppear:(BOOL)animated {
@@ -103,6 +104,44 @@
 }
 
 #pragma mark - Public Method
+
+/**
+ push进页面
+ 
+ @param vc 目标页面
+ @param callback 回调
+ */
+- (void)ylt_pushToVC:(UIViewController *)vc callback:(void(^)(id response))callback {
+    if (vc == nil) {
+        return;
+    }
+    vc.hidesBottomBarWhenPushed = YES;
+    if (callback) {
+        vc.ylt_callback = callback;
+    }
+    if (self.navigationController) {
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        UINavigationController *navigationController = navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:navigationController animated:YES completion:nil];
+    }
+}
+
+/**
+ push进页面
+ 
+ @param vc 目标页面
+ @param callback 回调
+ */
+- (void)ylt_presentToVC:(UIViewController *)vc callback:(void(^)(id response))callback {
+    if (vc == nil) {
+        return;
+    }
+    if (callback) {
+        vc.ylt_callback = callback;
+    }
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 /**
  创建控制器

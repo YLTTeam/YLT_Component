@@ -11,7 +11,6 @@
 @interface YLT_TopTabView()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
 }
 @property (nonatomic, strong) UICollectionView *mainCollectionView;
-@property (nonatomic, strong) UIImageView *selectedImageView;
 @end
 
 @implementation YLT_TopTabView
